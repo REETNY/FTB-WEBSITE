@@ -1,0 +1,29 @@
+.episode_cast{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.cast_hero{
+    width: 100%;
+    height: 70px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.casts_details{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    row-gap: 5px;
+}
+
+.cast_name{
+    font-size: 14px;
+}
+
+.cast_role_name{
+    font-size: 12px;
+}

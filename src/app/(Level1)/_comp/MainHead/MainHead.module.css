@@ -1,0 +1,232 @@
+
+.overHead{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mainHeadContainer{
+    width: 100%;
+    height: 100%;
+    padding: var(--page_padding);
+    background: rgba(var(--dark_blue), 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* overflow: hidden; */
+    position: absolute;
+}
+
+.leftHeadSide{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 40px;
+}
+
+.logoSpan{
+    font-size: var(--font-large);
+    font-weight: var(--font-weigth900);
+    cursor: pointer;
+}
+
+.headNavigator{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    column-gap: 15px;
+}
+
+.navLinkHead{
+    font-weight: var(--font-weigth500);
+    font-size: var(--font-small);
+    color: var(--text-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    padding: 20px 0px;
+    cursor: pointer;
+}
+
+.navLinkHead a{
+    color: var(--link-color1);
+}
+
+.navLinkHead:hover > .navLinkChild{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    padding: 15px 25px;
+}
+
+.navLinkChild{
+    font-weight: var(--font-weigth500);
+    font-size: var(--font-exSmall);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: calc(100% - 10px);
+    background: var(--mainBg);
+    box-shadow: var(--box-shadow-1);
+    display: none;
+    width: fit-content;
+    text-wrap: nowrap;
+    height: fit-content;
+    padding: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.navLinkChild a{
+    color: var(--link-color2);
+}
+
+/* hamburger styles */
+.hiddenHamBar{
+    display: none;
+}
+
+.hiddenHamBar .hamLines{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 85%;
+    height: 4px;
+    background: black;
+    transform: translate(-50%, -50%);
+    transition: transform .5s linear;
+}
+
+.hiddenHamBar .hamLines:nth-of-type(2){
+    transform: translate(-50%, 120%);
+    transition: transform .5s linear;
+}
+
+.hiddenHamBar .hamLines:nth-of-type(3){
+    transform: translate(-50%, -220%);
+    transition: transform .5s linear;
+}
+
+
+.hiddenHamBar .hamLines.active:nth-child(2){
+    top: 50%;
+    transform: translate(-200%, -50%);
+}
+
+.hiddenHamBar .hamLines.active:nth-child(1){
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.hiddenHamBar .hamLines.active:nth-child(3){
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+
+
+
+
+
+.xsDevice{
+    position: absolute;
+    z-index: 10000;
+    width: 100%;
+    height: calc(100vh - 50px - 90px);
+    overflow: hidden;
+    top: 52px;
+    left: 0;
+    display: none;
+    visibility: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.xsNavigations{
+    width: 85%;
+    min-height: 100%;
+    height: fit-content;
+    background: rgba(var(--dark_blue), .95);
+    padding: 15px 15px 0px 15px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.navHeadInit{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+}
+
+.headIniter{
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+    color: var(--text-1);
+}
+
+.initerOptions{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding-left: 15px;
+    height: 0px;
+    overflow: hidden;
+    transition: height .5s linear;
+}
+
+.initerOptions.active{
+    height: fit-content;
+}
+
+.initerOptions a{
+    color: var(--text-1);
+    font-size: 15px;
+    font-weight: var(--font-weigth500);
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+@media only screen and (max-width: 750px){
+
+    .mainHeadContainer.active{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .headNavigator{
+        display: none;
+    }
+
+    .hiddenHamBar{
+        display: block;
+        border: 1px solid black;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .xsDevice{
+        visibility: visible;
+        display: block;
+        transform: translateX(-500%);
+        transition: transform .4s ease-in-out;
+    }
+
+    .xsDevice.active{
+        transform: translateX(0%);
+    }
+}

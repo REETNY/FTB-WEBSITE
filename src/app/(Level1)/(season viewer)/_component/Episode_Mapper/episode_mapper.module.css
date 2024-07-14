@@ -1,0 +1,207 @@
+.context_main{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.4);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.details_hero{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    /* padding: 15px; */
+}
+
+.heroed{
+    width: 100%;
+    min-height: 130px;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.transformation{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    align-items: center;
+    padding: 15px;
+}
+
+.epidose_entry{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    font-weight: var(--font-weigth600);
+    column-gap: 8px;
+}
+
+.epi_what{
+    color: rgb(133, 128, 128);
+}
+
+.epi_title{
+    color: black;
+    font-weight: var(--font-weigth700);
+}
+
+
+.episode_facet{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    column-gap: 8px;
+}
+
+.epi_rate{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    align-items: center;
+    font-weight: var(--font-weigth700);
+    color: white;
+    font-size: 13px;
+    background: var(--tmdbDarkBlue);
+    padding: 4px 8px;
+    border-radius: 12.5px;
+}
+
+.epis_relz,
+.epi_duration{
+    font-size: 14px;
+    color: rgb(104, 101, 101);
+    font-weight: var(--font-weigth500);
+}
+
+.episode_about{
+    font-size: 15px;
+    font-weight: var(--font-weigth600);
+    line-height: 19px;
+}
+
+.episodes_container{
+    width: 100%;
+    height: fit-content;
+    height: 0px;
+    overflow: hidden;
+    /* border-top: 1px solid rgba(0,0,0,.4); */
+}
+
+.episodes_container.active{
+    height: fit-content;
+}
+
+.episodes_infom{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 10px;
+    padding: 15px 10px;
+    border-top: 1px solid rgba(0,0,0,.4);
+}
+
+.crews_tab, .casts_tab{
+    width: 100%;
+    height: fit-content;
+}
+
+.crews_tab{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.crew_head{
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+}
+
+.crew_length{
+    font-size: 14px;
+    color: rgb(124, 120, 120);
+}
+
+.crews_infos{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 5px;
+}
+
+.few_crews{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.left_assign{
+    font-weight: var(--font-weigth600);
+    font-size: 15px;
+}
+
+.right_assigned{
+    font-weight: var(--font-weigth400);
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+.casts_ways{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.casts_head{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.casts_head .h1{
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+}
+
+.casts_head .h2{
+    font-size: 12px;
+    font-weight: var(--font-weigth500);
+}
+
+.casts_tab{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.expansionBtn{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-top: 1px solid rgba(0,0,0,.4);
+    column-gap: 3px;
+}
+
+
+

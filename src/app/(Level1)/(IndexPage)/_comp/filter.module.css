@@ -1,0 +1,243 @@
+.filterCont{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.sortingMethod, .whereToWatch, .otherFiltrations{
+    width: 100%;
+    display: block;
+    box-shadow: var(--box-shadow-1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.OpenMenu{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-2);
+    padding: 15px 10px;
+    font-size: var(--font-exSmall);
+    font-weight: var(--font-weigth700);
+}
+
+.menu{
+    height: 0px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.menu.opened{
+    height: fit-content;
+    padding: 15px;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+}
+
+.menu.liner{
+    height: 0px;
+    padding: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.menu.liner.opened{
+    height: fit-content;
+    padding: 15px;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+}
+
+.menu.liner.opened > div:not(:first-child){
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.menu.liner > div:first-child{
+    padding-bottom: 10px;
+}
+
+.shown.show{
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.shown{
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+}
+
+.genresMap{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    row-gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.genreEl{
+    font-size: 13px;
+    font-weight: var(--font-weigth400);
+    padding: 7px 7px;
+    border-radius: 14px;
+    border: 1px solid var(--line2);
+    color: var(--text-2);
+    cursor: pointer;
+}
+
+.genreEl.active{
+    color: var(--text-1);
+    background: var(--bgTmdbLightBlue);
+    font-size: 12px;
+    border-color: var(--bgTmdbLightBlue);
+}
+
+.sliderProps{
+    width: 100%;
+    height: 40px;
+}
+
+.watchProviders{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 5px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.providersImage{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    position: relative;
+}
+
+.providersImage.active::after{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: "";
+    background: var(--bgTmdbLightBlue);
+    z-index: 1;
+    left: 0;
+    top: 0;
+    opacity: .5;
+    
+}
+
+.providersImage.active::before{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "\2713";
+    color: var(--text-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 2;
+    font-weight: var(--font-weigth700);
+}
+
+.datePickerEls{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+    margin-top: 10px;
+}
+
+.datePickEl{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+}
+
+.datePickEl small{
+    color: gray;
+}
+
+.certificateSelect{
+    width: 100%;
+    margin-top: 8px;
+}
+
+.keywordCont{
+    margin-top: 8px;
+    width: 100%;
+}
+
+.showCont{
+    width: 100%;
+    margin-top: 8px;
+}
+
+
+.searchBtn{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background: gray;
+    color: var(--text-1);
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+}
+
+.searchBtn.isBtn{
+    background: var(--bgTmdbLightBlue);
+}
+
+
+/* for anime part of filter */
+.letterEls{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    row-gap: 8px;
+    column-gap: 4px;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+.letter{
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgb(163, 160, 160);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 50%;
+    font-weight: var(--font-weigth700);
+}
+.letter.active{
+    background: var(--bgTmdbLightBlue);
+    border: none;
+    color: var(--text-1);
+}
+.letter.current{
+    background: orangered;
+    border: none;
+    color: var(--text-1);
+}

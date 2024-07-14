@@ -1,0 +1,120 @@
+.reviewers_cont{
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    column-gap: 20px;
+}
+
+.reviewer_content_hero{
+    width: 100%;
+    height: 100%;
+    background: rgb(241, 241, 241);
+    display: flex;
+    justify-content: center;
+    padding: 20px 15px;
+    box-shadow: 0px -4px 8px 2px rgba(0,0,0,.2);
+}
+
+.heros_contet{
+    width: 190px;
+    height: 285px;
+}
+
+.reviewer_content{
+    width: 100%;
+    min-height: 100%;
+    max-height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 15px;
+}
+
+.upper_part{
+    width: 100%;
+    height: fit-content;
+}
+
+.reviewed_data_detz{
+    width: 100%;
+    font-size: 22px;
+    font-weight: var(--font-weigth700);
+    color: gray;
+}
+
+.reviewed_name{
+    color: black;
+    margin-right: 20px;
+}
+
+.reviewers_information{
+    width: 100%;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 45px 1fr;
+    align-items: center;
+    margin-top: 7px;
+    margin-bottom: 15px;
+}
+
+.users_hero{
+    width: 100%;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.rev_info_detz{
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+}
+
+.users_name{
+    color: #426800;
+}
+
+.reviwers_opinion{
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: var(--font-weigth500);
+}
+
+
+
+.bottom_part{
+    width: 100%;
+    height: fit-content;
+}
+
+.redirector{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.redirector p{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 15px;
+    flex-wrap: wrap;
+    color: grey;
+}
+
+.redirector p a{
+    text-decoration: underline;
+    color: #426800;
+}
+
+.dev_to_know{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: gray;
+    font-weight: var(--font-weigth500);
+}

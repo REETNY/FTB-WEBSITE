@@ -1,0 +1,155 @@
+.media_index_container{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    padding-bottom: 20px;
+}
+
+.media_index_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.media_header{
+    font-size: 25px;
+    font-weight: var(--font-weigth900);
+    color: var(--text-2);
+}
+
+.media_header_nav{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 7px;
+    row-gap: 7px;
+}
+
+.header_nav_tab{
+    font-size: 15px;
+    font-weight: var(--font-weigth700);
+    color: var(--text-2);
+}
+
+.header_nav_tab.active{
+    position: relative;
+}
+
+.header_nav_tab.active::after{
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: var(--bgTmdbLightBlue);
+    content: "";
+    display: block;
+}
+
+.media_header_link{
+    font-size: 13px;
+    font-weight: var(--font-weigth700);
+    color: var(--text-2);
+}
+
+.media_index_content{
+    width: 100%;
+    height: fit-content;
+    min-height: 300px;
+    border-radius: 10px 10px 0px 0px;
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+}
+
+.mySwiper{
+    height: 100%;
+    position: absolute;
+    min-height: 300px;
+    width: 100%;
+}
+
+.iframe_play_cont, .frame_cont{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.openVideo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-1);
+    font-size: 35px;
+    cursor: pointer;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.openVideo::after, .openVideo::before{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "";
+    display: block;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+.openVideo::after{
+    animation: PlayButton 2s linear 0s infinite forwards ;
+}
+
+.openVideo::before{
+    animation: PlayButton 2s linear 1s infinite forwards ;
+}
+
+/* media_video */
+
+
+/* media_backdrops */
+.media_backdrop{
+    width: 550px !important;
+    height: 100% !important;
+}
+
+.media_videos{
+    width: 350px !important;
+    height: 100% !important;
+}
+
+.media_posters{
+    width: 200px !important;
+    height: 100% !important;
+}
+
+@media only screen and (max-width: 750px){
+    .media_backdrop, .media_videos{
+        width: 290px !important;
+    }
+
+    .media_header_nav{
+        max-width: 180px;
+    }
+}
+
+@keyframes PlayButton {
+    from{
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    to{
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,8 @@
+.season_layout{
+    width: 100%;
+    min-height: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 156px 1fr;
+}

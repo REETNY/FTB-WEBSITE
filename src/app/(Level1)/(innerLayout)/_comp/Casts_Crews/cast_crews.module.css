@@ -1,0 +1,139 @@
+.cast_crew_container{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 20px;
+}
+
+.cast_crew_container_anime{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 20px 20px;
+    row-gap: 20px;
+}
+
+.cast_container, .crews_container{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    row-gap: 20px;
+}
+
+.cont_head{
+    font-size: 24px;
+    font-weight: var(--font-weigth700);
+}
+
+.intro_name{
+    font-weight: var(--font-weigth900);
+    font-size: 22px;
+}
+
+.others{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.other_hero{
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.other_detz{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.other_name, .character_name, .translator_name{
+    font-size: 17px;
+    font-weight: var(--font-weigth700);
+}
+
+.role_played, .character_role, .tranlate_language{
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.anime{
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.anime_div{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.anime_left{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.anime_character_hero{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.anime_right{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+
+.each_translator_data{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.translator_hero{
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.translator_name{
+    font-size: 12px;
+    font-weight: var(--font-weigth700);
+}
+
+.tranlate_language{
+    font-size: 12px;
+    font-weight: var(--font-weigth700);
+}
+
+@media only screen and (max-width: 750px){
+    .cast_crew_container{
+        grid-template-columns: 1fr;
+        row-gap: 40px;
+    }
+}

@@ -1,0 +1,237 @@
+.innerHeadCont{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.eachHeadLink{
+    width: fit-content;
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eachHeadLink:hover > .head_menu{
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    padding: 10px 0px;
+}
+
+.head_link{
+    font-weight: var(--font-weigth700);
+    font-size: 16px;
+    color: var(--text-2);
+    display: flex;
+    column-gap: 8px;
+}
+
+.head_menu{
+    top: 45px;
+    position: absolute;
+    display: none;
+    min-width: 150px;
+    width: fit-content;
+    height: fit-content;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.2);
+    border-radius: 5px;
+    background: var(--mainBg);
+    z-index: 100;
+}
+
+.head_menu a{
+    color: var(--text-2);
+    text-decoration: none;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.head_menu button{
+    background: none;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    text-align: start;
+    cursor: pointer;
+}
+
+.head_menu button:hover{
+    background: rgba(0,0,0,.2);
+}
+
+.head_menu a:hover{
+    background: rgba(0,0,0,.2);
+}
+
+.openVideoHead{
+    width: 100%;
+    display: flex;
+    column-gap: 7px;
+    position: relative;
+}
+
+.vidHead{
+    width: 100%;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.eachHeadLink:hover > .head_menu .openVideoHead:hover > .vidMenu{
+    display: flex;
+    background: white;
+}
+
+.openVideoHead:hover{
+    background: var(--bgTmdbLightBlue);
+}
+
+.vidMenu{
+    position: absolute;
+    left: calc(100%);
+    width: 150px;
+    height: fit-content;
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.2);
+    display: none;
+    border-radius: 8px;
+}
+
+.vidMenu a{
+    padding: 5px 10px;
+}
+
+
+.backCover{
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    position: fixed;
+    background: rgba(0,0,0,.4);
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display: none;
+    visibility: hidden;
+}
+
+.backCover.active{
+    display: block;
+    visibility: visible;
+}
+
+.getLinkContainer{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 340px;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0px;
+    padding: 15px 10px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.2);
+    transform: translate(-50%, -700%);
+    z-index: 200;
+    background: var(--mainBg);
+}
+
+.getLinkContainer.active{
+    transform: translate(-50%, -50%);
+}
+
+/* .getLinkContainer::after{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    content: "";
+    display: block;
+    background: rgba(0,0,0,.4);
+    left: 0;
+    top: 0;
+} */
+
+.getLinkHead{
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: var(--font-weigth700);
+}
+
+.getLinkDataCont{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    column-gap: 5px;
+    height: fit-content;
+    align-items: center;
+}
+
+.getLinker{
+    width: 100%;
+    height: fit-content;
+}
+
+.getLinker input{
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0px 0px 0px 10px;
+    border: none;
+    outline: none;
+    border:  1px solid rgba(0,0,0,.2);
+}
+
+.copy_link_btn{
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-2);
+    cursor: pointer;
+}
+
+.copiedToClip{
+    width: 100vw;
+    height: 45px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgb(84, 230, 84);
+    color: var(--text-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 101;
+    transform: translateY(-150%);
+    transition: transform .5s linear;
+}
+.copiedToClip.active{
+    transform: translateY(0%);
+}
+
+@media only screen and (max-width: 750px){
+    .innerHeadCont{
+        column-gap: 8px;
+    }
+
+    .head_menu{
+        left: 0%;
+    }
+    .head_menu:last-of-type{
+        left: -120%;
+    }
+}

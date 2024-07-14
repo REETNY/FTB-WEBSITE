@@ -1,0 +1,82 @@
+.Series_Season{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+}
+
+.Season_Data{
+    width: 100%;
+    height: fit-content;
+    padding: 25px 20px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.Season_Data:not(:last-of-type){
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.season_hero{
+    width: 100%;
+    height: 130px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.season_detail{
+    display: flex;
+    flex-direction: column;
+    row-gap: 7px;
+
+}
+
+.season_name{
+    font-size: 23px;
+    font-weight: var(--font-weigth700);
+}
+
+.season_rezz{
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.season_rate{
+    font-size: 12px;
+    font-weight: var(--font-weigth700);
+    color: var(--text-1);
+    background: var(--tmdbDarkBlue);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.rezz{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.rel_year{
+    font-size: 16px;
+    font-weight: var(--font-weigth700);
+}
+
+.circle{
+    font-size: 12px;
+}
+
+.episode_count{
+    font-size: 16px;
+    font-weight: var(--font-weigth700);
+}
+
+.season_information{
+    margin-top: 22px;
+    font-size: 15px;
+    font-weight: var(--font-weigth700);
+}

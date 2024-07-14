@@ -1,0 +1,88 @@
+:root {
+
+  --mainBg: #fff;
+
+  --text-1: #fff;
+  --text-2: #000;
+
+  --icon-1: blue;
+  --icon-2: red;
+
+  --progress1: red;
+  --progress2: orange;
+  --progress3: yellow;
+  --progress4: green;
+
+  --line-1: blue;
+  --line-2: darkblue;
+
+  --bgTmdbLightBlue: rgba(1, 180, 228);
+  
+  --light_shadow: -10px 0px 30px 3px white ;
+
+  --dark_blue: 3, 37, 65;
+
+  --page_padding: 8px 20px;
+  --page_padding2: 20px 20px;
+
+  --font-weigth300: 300;
+  --font-weigth400: 400;
+  --font-weigth500: 500;
+  --font-weigth700: 700;
+  --font-weigth900: 900;
+
+  --font-big: 22px;
+  --font-exSmall: 15px;
+  --font-small: 16px;
+  --font-large: 32px;
+  --font_exLarge: 42px;
+
+  --box-shadow-1: 0px 0px 2px 1.5px rgba(0,0,0,.2);
+
+  --link-color1: #fff;
+  --link-color2: #000;
+
+  --line: rgba(0,0,0,.1);
+  --line2: rgba(0,0,0,.3);
+
+  --tmdbDarkBlue: rgb(3, 37, 65);
+}
+
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "__Roboto_Fallback_a7f227";
+  background: var(--mainBg);
+}
+
+/* SCROLLBAR STYLES */
+::-webkit-scrollbar{
+  width: 4px
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--tmdbDarkBlue);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e4e1e1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bgTmdbLightBlue);
+}

@@ -1,0 +1,184 @@
+.altTitle_Cont{
+    width: 100%;
+    height: fit-content;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    column-gap: 30px;
+    padding: 20px 20px;
+}
+
+
+.left_nav_bar{
+    width: 100%;
+    height: fit-content;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.3);
+}
+
+.fullcrum_nav{
+    width: 100%;
+    height: fit-content;
+}
+
+.fullcrum_head{
+    font-size: 24px;
+    font-weight: var(--font-weigth900);
+    padding: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-1);
+}
+
+.fullcrum_options{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.clickCountry{
+    width: 100%;
+    height: fit-content;
+    padding: 12px 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 17px;
+    font-weight: var(--font-weigth700);
+    color: var(--text-2);
+}
+
+.clickCountry:first-of-type{
+    margin-top: 5px;
+}
+
+.clickCountry:hover{
+    color: white;
+    background: rgba(0,0,0,.8);
+    cursor: pointer;
+}
+
+.right_content_block{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 10px;
+    justify-content: center;
+}
+
+.video_content{
+    width: 100%;
+    height: fit-content;
+    border-radius: 10px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.3);
+}
+
+.video_hero{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.player_btn{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    font-size: 22px;
+    color: white;
+}
+
+.video_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.video_info_top{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.video_name{
+    font-size: 17px;
+    font-weight: var(--font-weigth900);
+}
+
+.video_report{
+    display: flex;
+    column-gap: 7px;
+    flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+}
+
+.video_report span{
+    position: relative;
+    padding-left: 8px;
+    font-size: 14px;
+}
+
+.video_report span::after{
+    position: absolute;
+    content: "\00B7";
+    display: block;
+    font-size: 14px;
+    font-weight: var(--font-weigth700);
+    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    font-size: 16px;
+    color: green;
+}
+
+.video_info_bottom{
+    width: 100%;
+    height: fit-content;
+    padding: 8px 10px;
+    background: rgba(0,0,0,.1);
+    border-radius: 4px;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+
+.video_fromSourecLogo,
+.marked_star{
+    font-size: 18px;
+}
+
+.marked_star{
+    color: gold;
+}
+
+@media only screen and (max-width: 750px){
+    .altTitle_Cont{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        align-items: center;
+    }
+}

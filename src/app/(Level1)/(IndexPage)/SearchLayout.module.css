@@ -1,0 +1,15 @@
+.SearchContainer{
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    padding: var(--page_padding2);
+    column-gap: 20px;
+}
+
+@media only screen and (max-width: 750px){
+    .SearchContainer{
+        grid-template-columns: 1fr;
+        row-gap: 45px;
+    }
+}

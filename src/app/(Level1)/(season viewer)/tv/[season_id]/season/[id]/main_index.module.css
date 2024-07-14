@@ -1,0 +1,48 @@
+.index_season_cont{
+    width: 100%;
+    min-height: 100%;
+    height: fit-content;
+}
+
+.top_navigation{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.backBtn a,
+.forwardBtn a{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 14px;
+    font-weight: var(--font-weigth500);
+    column-gap: 10px;
+}
+
+.forwardBtn{
+    margin-left: auto;
+}
+
+.index_seasoned_content{
+    width: 100%;
+    height: fit-content;
+    padding: 30px 20px 15px;
+}
+
+.index_top{
+    margin-bottom: 15px;
+}
+
+.index_content{
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    height: fit-content;
+    row-gap: 20px;
+}

@@ -1,0 +1,7 @@
+.inner_collection{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 117px 1fr;
+}

@@ -1,0 +1,18 @@
+.data_full_container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    height: fit-content;
+    padding-bottom: 30px;
+}
+
+.data_other_cont{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.data_other_cont > div:not(:last-of-type){
+    border-bottom:  1px solid rgba(0,0,0,.3);
+}
