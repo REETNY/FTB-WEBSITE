@@ -195,6 +195,106 @@
     align-items: center;
 }
 
+.rightHeadSide{
+    width: fit-content;
+    height: fit-content;
+    min-height: 40px;
+    display: flex;
+    column-gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clustered_search{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+}
+
+.clustered_search_init{
+    font-size: 20px;
+    font-weight: var(--font-weigth700);
+    color: white;
+}
+
+.clustered_search_cont{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    height: fit-content;
+    display: none;
+}
+
+.clustered_search_cont.active{
+    display: block;
+}
+
+.goToSearch{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+.searchBox{
+    width: 100%;
+    font-size: 16px;
+    font-weight: var(--font-weigth700);
+    letter-spacing: .5px;
+    padding: 10px 50px 10px 30px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.cancelSearch{
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: var(--font-weigth700);
+    height: fit-content;
+    width: fit-content;
+}
+
+.users{
+    width: fit-content;
+    height: fit-content;
+}
+
+.userInfo{
+    width: fit-content;
+    height: fit-content;
+}
+
+.userHero{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media only screen and (max-width: 750px){

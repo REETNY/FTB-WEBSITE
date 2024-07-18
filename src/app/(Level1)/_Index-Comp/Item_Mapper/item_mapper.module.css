@@ -1,0 +1,160 @@
+.item_mapper_cont{
+    width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.item_mapper_hero{
+    width: 100%;
+    height: 225px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.item_mapper_details{
+    width: 100%;
+    height: fit-content;
+    padding: 35px 10px 5px;
+    position: relative;
+}
+
+.item_mapper_rating{
+    width: 45px;
+    height: 45px;
+    background: var(--tmdbDarkBlue);
+    position: absolute;
+    top: -22.5px;
+    left: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.item_mapper_rate{
+    width: 39px;
+    height: 39px;
+    background: var(--tmdbDarkBlue);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    overflow: hidden;
+    background: red;
+}
+
+.item_rated_score{
+    width: 35px;
+    height: 35px;
+    background: var(--tmdbDarkBlue);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;;
+    font-weight: var(--font-weigth900);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.item_mapper_name{
+    font-size: 14px;
+}
+
+.percent_icon{
+    font-size: 8px;
+    text-transform: lowercase;
+    display: flex;
+    height: 100%;
+    margin-top: 12px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.item_mapper_infoz{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+}
+
+.item_mapper_name a{
+    width: 100%;
+    font-size: 15px;
+    font-weight: var(--font-weigth700);
+    color: black;
+}
+
+.item_mapper_name a:hover{
+    color: var(--bgTmdbLightBlue);
+}
+.item_mapper_date{
+    font-size: 14px;
+    color: rgb(189, 184, 184);
+    font-weight: var(--font-weigth500);
+}
+
+
+
+
+/* index traailer */
+.trailer_player_index{
+    width: 280px;
+    height: 310px;
+}
+
+.eachTrailer_hero{
+    width: 100%;
+    height: 225px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.treilerPlayBtn{
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.eachTrailer_info{
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    color: white;
+}
+
+.trailer_name{
+    font-weight: var(--font-weigth900);
+    font-size: 17px;
+}
+
+.trailer_info{
+    font-size: 14px;
+    font-weight: var(--font-weigth500);
+}
+
+
+
+
+
+
+
+
+

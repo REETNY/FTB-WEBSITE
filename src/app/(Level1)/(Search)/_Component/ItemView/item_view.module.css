@@ -1,0 +1,118 @@
+/* default */
+.extension{
+    list-style: none;
+}
+
+.item_view_cont{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+}
+
+.search_head{
+    font-size: 24px;
+    font-weight: var(--font-weigth700);
+}
+
+.item_viewer_cont{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.each_view{
+    width: 100%;
+    height: fit-content;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 2px 1.5px rgba(0,0,0,.3);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    column-gap: 10px;
+}
+
+.hero_cont{
+    width: 100%;
+    height: 150px;
+}
+
+.detailed_cont{
+    width: 100%;
+    max-height: fit-content;
+    height: 100%;
+    padding: 10px 10px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
+}
+
+.detz_name{
+    font-size: 16px;
+    font-weight: var(--font-weigth700);
+    color: black;
+}
+
+.detz_name:hover{
+    color: var(--bgTmdbLightBlue);
+}
+
+.detz_release{
+    font-size: 13px;
+    color: rgb(199, 196, 196);
+    font-weight: var(--font-weigth500);
+}
+
+.detz_overview{
+    font-size: 14px;
+    font-weight: var(--font-weigth400);
+    margin-top: auto;
+    width: 100%;
+    display: block;
+}
+
+.pagination_nav{
+    width: 100%;
+    height: fit-content;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paged_divs{
+    width: fit-content;
+    height: fit-content;
+}
+
+.pages_nums{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+}
+
+.listed_page{
+    cursor: pointer;
+    list-style: none;
+    width: 42px;
+    min-width: fit-content;
+    min-height: 42px;
+    font-size: 13px;
+    font-weight: var(--font-weigth700);
+    color: black;
+    background: gainsboro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20.5px;
+}
+
+.listed_page.active{
+    color: white;
+    background: var(--bgTmdbLightBlue)
+}

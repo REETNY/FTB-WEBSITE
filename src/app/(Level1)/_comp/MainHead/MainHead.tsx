@@ -1,15 +1,22 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import type { RootState } from '@/store/store'
 import { useSelector, useDispatch } from 'react-redux'
 import styls from "./MainHead.module.css"
 import Link from 'next/link';
 import { updateHamState, changeKey } from '@/store/Slices/HamSlice'
+import { FaSearch } from 'react-icons/fa';
+import { BiX } from "react-icons/bi"
+import { useRouter } from 'next/navigation';
+import Image01 from '@/components/ImageComponents/Image01';
+
 
 export default function MainHead() {
-
+  let inputRef = useRef<HTMLInputElement>(null);
+  const [detz, setDetz] = useState(false);
   const {isHam, key: openedKey} = useSelector((state: RootState) => state.hamSlice.properties);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // stops the page from scrolling when nav bar is open in small devices
   useEffect(() => {
@@ -23,6 +30,11 @@ export default function MainHead() {
     }
 
   }, [isHam]);
+
+  const navigate_search = () => {
+    let value = inputRef?.current?.value;
+    router.push(`search?query=${value}`)
+  }
 
   const handleKey = (key: string) => {
     dispatch(changeKey({current_key: key}))
@@ -150,7 +162,29 @@ export default function MainHead() {
         </div>
 
         <div className={styls.rightHeadSide}>
+
+          <div className={styls.users}>
+
+            <div className={styls.userInfo}>
+              <div className={styls.userHero}>
+                <Image01 path1='' path2='' name='' />
+              </div>
+            </div>
+
+            {/* div. */}
+
+          </div>
           
+          <div className={styls.clustered_search}>
+            <div onClick={() => setDetz((bool) => !bool)} className={styls.clustered_search_init}><FaSearch /></div>
+            <div className={detz ? `${styls.clustered_search_cont} ${styls.active}` : styls.       clustered_search_cont}
+            >
+              <input ref={inputRef} type='text' className={styls.searchBox} />
+              <span onClick={navigate_search} className={styls.goToSearch}><FaSearch /></span>
+              <span onClick={() => setDetz(false)} className={styls.cancelSearch}><BiX /></span>
+            </div>
+          </div>
+
         </div>
 
       </div>

@@ -405,6 +405,8 @@
     .only_small_dev{
         width: 100%;
         display: grid;
+        min-height: 66px;
+        max-height: 66px;
     }
 
     .xs__actions{
