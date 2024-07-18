@@ -1,6 +1,7 @@
 import { StoreProvider } from "@/store/StoreProvider"
 import "./globals.css"
 import { Roboto } from "next/font/google"
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 export const metadata = {
   title: 'Next.js',
@@ -26,7 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <StoreProvider>
-          {children}
+          <AntdRegistry>
+            {children}
+          </AntdRegistry>
         </StoreProvider>
       </body>
     </html>
