@@ -241,3 +241,11 @@
     border: none;
     color: var(--text-1);
 }
+
+
+
+
+/*  */
+.rs_radio_reset {
+    max-height: 28px !important;
+}

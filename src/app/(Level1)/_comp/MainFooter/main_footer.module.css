@@ -20,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
+    z-index: 100;
     justify-content: center;
 }
 

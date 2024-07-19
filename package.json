@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.16.4",
     "@next/font": "^14.2.3",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/color-thief-node": "^1.0.4",
@@ -35,6 +38,7 @@
     "react-star-ratings": "^2.3.0",
     "react-typed": "^2.0.12",
     "redux-persist": "^6.0.0",
+    "rsuite": "^5.66.0",
     "styled-components": "^6.1.11",
     "swiper": "^11.1.4",
     "swr": "^2.2.5",

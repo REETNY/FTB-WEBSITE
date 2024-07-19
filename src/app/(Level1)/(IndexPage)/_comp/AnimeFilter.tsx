@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styls from "./filter.module.css"
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Select, Checkbox, CheckboxProps, Slider, SliderSingleProps, DatePicker, DatePickerProps, Tooltip, Input, InputProps, Radio, Switch } from 'antd';
-import type { RadioChangeEvent } from 'antd';
+import { Switch } from 'antd';
+// import type { RadioChangeEvent } from 'antd';
 import { FaChevronRight } from 'react-icons/fa';
 import clsx from 'clsx';
 import Countries from "../_libs/countries.json";
@@ -16,6 +16,18 @@ import { useInView } from 'react-intersection-observer';
 
 import dayjs from 'dayjs';
 import { isBtnInView, queryBtn, setQueriesParams } from '@/store/Slices/QuerySlice';
+
+// RSUITE1 UI
+import { SelectPicker } from 'rsuite';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
+import { ValueType as Value } from 'rsuite/esm/Radio';
+import { Radio, RadioGroup } from 'rsuite';
+import { Checkbox } from 'rsuite';
+import { DatePicker } from 'rsuite';
+import { Tooltip, Whisper } from 'rsuite';
+import { Slider, RangeSlider } from 'rsuite';
+import { Input } from 'rsuite';
+import { Toggle } from 'rsuite';
 
 const dateFormater = (date: Date) => {
   let datex = date;
@@ -233,29 +245,31 @@ export default function AnimeFilter() {
     }
   
     // handle date picker //done
-    const handleStartDate:  DatePickerProps['onChange'] = (date, dateString) => {
+    const handleStartDate = (date:Date) => {
+      let dateString = (new Date(date).toISOString().slice(0,10));
       dispatch(queryBtn(true))
       setFilters((obj) => ({...obj, release_date: {...filters.release_date, from: dateString.toString()}}))
     }
-    const handleEndDate: DatePickerProps['onChange'] = (date, dateString) => {
+    const handleEndDate = (date:Date) => {
+      let dateString = (new Date(date).toISOString().slice(0,10));
       dispatch(queryBtn(true))
       setFilters((obj) => ({...obj, release_date: {...filters.release_date, to: dateString.toString()}}))
     }
   
     // handle keyword
-    const handleKeyword: InputProps["onChange"] = (e) => {
+    const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(queryBtn(true))
       setFilters((obj) => ({...obj, keyword: e.target.value}));
     }
   
     // handle show props
-    const handleShowMe = (e: RadioChangeEvent) => {
+    const handleShowMe = (val: any) => {
       dispatch(queryBtn(true))
-      setFilters((obj) => ({...obj, show_me: e.target.value}))
+      setFilters((obj) => ({...obj, show_me: val}))
     }
 
     // handle limit
-    const handleLimit: InputProps["onChange"] = (e) => {
+    const handleLimit = (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(queryBtn(true))
       setFilters((obj) => ({...obj, limit: parseInt(e.target.value || "0")}));
     }
@@ -293,19 +307,19 @@ export default function AnimeFilter() {
     }
   
     //score
-    const userScoreMarks: SliderSingleProps['marks'] = {
-      0: '0',
-      10: '.',
-      20: '.',
-      30: '.',
-      40: '.',
-      50: '5',
-      60: '.',
-      70: '.',
-      80: '.',
-      90: '.',
-      100: "10"
-    };
+    // const userScoreMarks: SliderSingleProps['marks'] = {
+    //   0: '0',
+    //   10: '.',
+    //   20: '.',
+    //   30: '.',
+    //   40: '.',
+    //   50: '5',
+    //   60: '.',
+    //   70: '.',
+    //   80: '.',
+    //   90: '.',
+    //   100: "10"
+    // };
   
     
   // generate alphabets a to z
@@ -451,6 +465,70 @@ export default function AnimeFilter() {
 
   }
 
+  // option sort
+  const optionSort = [
+    { value: "", label: 'Choose Sorting?'},
+    { value: 'asc', label: 'Ascending Order' },
+    { value: 'desc', label: 'Descending Order' }
+  ]
+
+  // option sort select
+  const renderMenuItem = (label:any, item:any) => {
+    return (
+      <span>{label}</span>
+    );
+  };
+
+  // option certificate
+
+  const tooltip = (val:string) => {
+    return (
+      <Tooltip>
+        {val}.
+      </Tooltip>
+    )
+  }
+  
+  const renderMenuItem3 = (label:any, item:any) => {
+    return(
+      <Whisper placement="top" controlId="control-id-hover" trigger="hover" speaker={tooltip(label)}>
+        <span>{item.value}</span>
+      </Whisper>
+    )
+  }
+
+  // option type
+  const optionType = [
+    { value: "", label: 'Choose Type?'},
+    { value: 'tv', label: 'Tv' },
+    { value: 'ova', label: 'Ova' },
+    { value: 'special', label: 'Specials' },
+    { value: 'movie', label: 'Moive' },
+    { value: 'ona', label: 'Ona' },
+    { value: 'music', label: 'Music' },
+    { value: 'cm', label: 'CM' },
+    { value: 'pv', label: 'PV' },
+    { value: 'tv-special', label: 'Tv-Special' }
+  ]
+
+  // option rating
+  const optionRating = [
+    { value: "", label: 'Choose Rating?'},
+    { value: 'g', label: 'G' },
+    { value: 'pg', label: 'PG' },
+    { value: 'pg13', label: 'PG-13' },
+    { value: 'r17', label: 'R-17' },
+    { value: 'r', label: 'Mild Nudity' },
+    { value: 'rx', label: 'Hentai' },
+  ]
+
+  // option status
+  const optionStatus = [
+    { value: "", label: 'Choose Status?'},
+    { value: 'airing', label: 'Airing' },
+    { value: 'completed', label: 'Completed' },
+    { value: 'upcoming', label: 'Upcoming' },
+  ]
 
   return (
     <div className={styls.filterCont}>
@@ -463,15 +541,16 @@ export default function AnimeFilter() {
         <div className={sortClass}>
           <div>Sort Result By?</div>
           <div>
-            <Select
-              defaultValue={filters.sort}
-              style={{ width: "100%", marginTop: "10px"}}
-              onChange={handleSort}
-              options={[
-                { value: "", label: 'Choose Sorting?'},
-                { value: 'asc', label: 'Ascending Order' },
-                { value: 'desc', label: 'Descending Order' },
-              ]}
+            <SelectPicker
+              defaultValue={filters?.sort}
+              // value={filters?.sort}
+              style={{width: "100%", marginTop: "10px"}}
+              labelKey="label"
+              valueKey="value"
+              placeholder="Select Sort"
+              renderMenuItem={renderMenuItem}
+              data={optionSort}
+              onChange={(value:ValueType) => handleSort(value)}
             />
           </div>
         </div>
@@ -502,8 +581,8 @@ export default function AnimeFilter() {
             <div className={styls.menuHead}>Limit?</div>
             <div className={styls.showCont}>
               <Input 
-                placeholder='Enter Limit'
-                onChange={handleLimit}
+                placeholder='Enter Limit?'
+                onChange={(value: string, event: React.ChangeEvent<HTMLInputElement>) => handleLimit(event)}
                 value={filters.limit}
               />
             </div>
@@ -512,18 +591,25 @@ export default function AnimeFilter() {
           <div className={styls.showMe}>
             <div className={styls.menuHead}>Show Me</div>
             <div className={styls.showCont}>
-              <Radio.Group onChange={handleShowMe} value={filters.show_me}>
+              <RadioGroup onChange={(value:Value) => handleShowMe(value)} name="" value={filters.show_me}>
                 <Radio value={"all"}>Everything</Radio>
                 <Radio value={"not_seen"}>Anime I Havent Seen</Radio>
                 <Radio value={"already_seen"}>Anime I Have Seen</Radio>
-              </Radio.Group>
+              </RadioGroup>
             </div>
           </div>
 
+          {/* to be worked on */}
           <div className={styls.safeForWork}>
             <div className={styls.menuHead}>Show Expilicit Content</div>
             <div className={styls.showCont}>
-              <Switch defaultChecked={Boolean(filters?.sfw == "true" ? true : false)} onChange={handleSFW} />
+              <Toggle 
+                defaultChecked={Boolean(filters?.sfw == "true" ? true : false)}
+                onChange={(checked:boolean, event) => handleSFW(checked)}
+                color="blue"
+              >
+                Blue
+              </Toggle>
             </div>
           </div>
 
@@ -532,11 +618,21 @@ export default function AnimeFilter() {
             <div className={styls.datePickerEls}>
               <div className={styls.datePickEl}>
                 <small>from</small>
-                <DatePicker value={dayjs(filters.release_date.from)} style={{width: "100%"}} onChange={handleStartDate} />
+                <DatePicker 
+                  value={new Date(filters.release_date.from)} 
+                  style={{width: "100%"}} 
+                  // onChange={(date: Date) => console.log()}
+                  onChangeCalendarDate={(date: Date, event) => handleStartDate(date)}
+                />
               </div>
               <div className={styls.datePickEl}>
                 <small>to</small>
-                <DatePicker value={dayjs(filters.release_date.to)} style={{width: "100%"}} onChange={handleEndDate} />
+                <DatePicker 
+                  value={new Date(filters.release_date.to)} 
+                  style={{width: "100%"}} 
+                  // onChange={(date: Date) => console.log()}
+                  onChangeCalendarDate={(date: Date, event) => handleEndDate(date)}
+                />
               </div>
             </div>
           </div>
@@ -544,7 +640,7 @@ export default function AnimeFilter() {
           <div className={styls.language} id="for Type">
             <div className={styls.menuHead}>Type</div>
             <div>
-              <Select 
+              {/* <Select 
                 defaultValue={filters.type}
                 style={{ width: "100%", marginTop: "10px"}}
                 onChange={handleType}
@@ -560,6 +656,17 @@ export default function AnimeFilter() {
                   { value: 'pv', label: 'PV' },
                   { value: 'tv-special', label: 'Tv-Special' }
                 ]}
+              /> */}
+              <SelectPicker
+                defaultValue={filters?.type}
+                // value={filters?.sort}
+                style={{width: "100%", marginTop: "10px"}}
+                labelKey="label"
+                valueKey="value"
+                placeholder="Select Type?"
+                renderMenuItem={renderMenuItem}
+                data={optionType}
+                onChange={(value:ValueType) => handleType(value)}
               />
             </div>
           </div>
@@ -567,19 +674,16 @@ export default function AnimeFilter() {
           <div className={styls.language} id="for Rating">
             <div className={styls.menuHead}>Rating</div>
             <div>
-              <Select 
-                defaultValue={filters.rating}
-                style={{ width: "100%", marginTop: "10px"}}
-                onChange={handleRating}
-                options={[
-                  { value: "", label: 'Choose Rating?'},
-                  { value: 'g', label: 'G' },
-                  { value: 'pg', label: 'PG' },
-                  { value: 'pg13', label: 'PG-13' },
-                  { value: 'r17', label: 'R-17' },
-                  { value: 'r', label: 'Mild Nudity' },
-                  { value: 'rx', label: 'Hentai' },
-                ]}
+              <SelectPicker
+                defaultValue={filters?.rating}
+                // value={filters?.sort}
+                style={{width: "100%", marginTop: "10px"}}
+                labelKey="label"
+                valueKey="value"
+                placeholder="Select Rating?"
+                renderMenuItem={renderMenuItem}
+                data={optionRating}
+                onChange={(value:ValueType) => handleRating(value)}
               />
             </div>
           </div>
@@ -587,16 +691,16 @@ export default function AnimeFilter() {
           <div className={styls.language} id="for Status">
             <div className={styls.menuHead}>Status</div>
             <div>
-              <Select 
-                defaultValue={filters.status}
-                style={{ width: "100%", marginTop: "10px"}}
-                onChange={handleStatus}
-                options={[
-                  { value: "", label: 'Choose Status?'},
-                  { value: 'airing', label: 'Airing' },
-                  { value: 'completed', label: 'Completed' },
-                  { value: 'upcoming', label: 'Upcoming' },
-                ]}
+              <SelectPicker
+                defaultValue={filters?.status}
+                // value={filters?.sort}
+                style={{width: "100%", marginTop: "10px"}}
+                labelKey="label"
+                valueKey="value"
+                placeholder="Select Rating?"
+                renderMenuItem={renderMenuItem}
+                data={optionStatus}
+                onChange={(value:ValueType) => handleStatus(value)}
               />
             </div>
           </div>
@@ -612,7 +716,7 @@ export default function AnimeFilter() {
           <div className={styls.userScore}>
             <div className={styls.menuHead}>User Score</div>
             <div className={styls.sliderProps}>
-              <Slider 
+              {/* <Slider 
                 onChange={(values: number[]) => handleUserScore(values)}
                 range
                 style={{width: "95%", height: "100%"}} 
@@ -629,6 +733,16 @@ export default function AnimeFilter() {
                 defaultValue={
                   [filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]
                 }
+              /> */}
+              <RangeSlider 
+                style={{marginTop: "10px"}}
+                defaultValue={[filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]}
+                graduated
+                step={10}
+                onChange={(value:[number, number]) => handleUserScore(value)}
+                renderMark={(mark:number) => {
+                  return <span>{(mark / 10) % 5 == 0 ? mark : ''}</span>
+                }}
               />
             </div>
           </div>
@@ -638,7 +752,7 @@ export default function AnimeFilter() {
             <div className={styls.keywordCont}>
               <Input 
                 placeholder='Search Keyword'
-                onChange={handleKeyword}
+                onChange={(value: string, event: React.ChangeEvent<HTMLInputElement>) => handleKeyword(event)}
                 value={filters.keyword}
               />
             </div>

@@ -2,8 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styls from "./filter.module.css"
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Select, Checkbox, CheckboxProps, Slider, SliderSingleProps, DatePicker, DatePickerProps, Tooltip, Input, InputProps, Radio } from 'antd';
-import type { RadioChangeEvent } from 'antd';
 import { FaChevronRight } from 'react-icons/fa';
 import clsx from 'clsx';
 import Countries from "../_libs/countries.json";
@@ -14,8 +12,19 @@ import { RootState } from '@/store/store';
 import { chooseCountry } from '@/store/Slices/UserSlice';
 import { useInView } from 'react-intersection-observer';
 
-import dayjs from 'dayjs';
+
 import { isBtnInView, queryBtn, setQueriesParams } from '@/store/Slices/QuerySlice';
+
+// RSUITE1 UI
+import { SelectPicker } from 'rsuite';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
+import { ValueType as Value } from 'rsuite/esm/Radio';
+import { Radio, RadioGroup } from 'rsuite';
+import { Checkbox } from 'rsuite';
+import { DatePicker } from 'rsuite';
+import { Tooltip, Whisper } from 'rsuite';
+import { Slider, RangeSlider } from 'rsuite';
+import { Input } from 'rsuite';
 
 const tmdbOptions = {
   "accept": "application/json",
@@ -33,6 +42,18 @@ const dateFormater = (date: Date) => {
 }
 
 const fetcher = (url:string) => fetch(url, {headers:{...tmdbOptions}}).then((res) => res.json());
+
+const optionSort = [
+  { value: "", label: 'Choose Sorting?'},
+  { value: 'popularity_desc', label: 'Popularity Descending' },
+  { value: 'popularity_asc', label: 'Popularity Ascending' },
+  { value: 'rating_desc', label: 'Rating Descending' },
+  { value: 'rating_asc', label: 'Rating Ascending' },
+  { value: 'release_date_asc', label: 'Release Date Ascending' },
+  { value: 'release_date_desc', label: 'Release Date Descending' },
+  { value: 'title_asc', label: 'Title A-Z' },
+  { value: 'title_desc', label: 'Title Z-A' },
+]
 
 export default function MoviesFilter() {
   const {isBtnActive} = useSelector((state: RootState) => state.querySlice)
@@ -278,11 +299,12 @@ export default function MoviesFilter() {
     { label: 'Rent', value: 'rent' },
     { label: 'Buy', value: 'buy' }
   ];
-  const makeAvail: CheckboxProps["onChange"] = (e) => { 
+  const makeAvail = (e:React.ChangeEvent<HTMLInputElement>) => { 
     setMenu((obj) => ({...obj, availabilities: e.target.checked}))
     setFilters((obj) => ({...obj, available: []}))
+    dispatch(queryBtn(true))
   };
-  const handleAvails: CheckboxProps["onChange"] = (e) => {
+  const handleAvails = (e:React.ChangeEvent<HTMLInputElement>) => {
     const itExist = filters.available.find((item:string) => item == e.target.value);
     dispatch(queryBtn(true))
     if(itExist){
@@ -298,7 +320,14 @@ export default function MoviesFilter() {
   }
   const checkAvailOpts = options.map((item, index) => {
     return (
-      <Checkbox key={index} value={item.value} checked={observeChecked(item.value)} onChange={handleAvails} >{item.label}</Checkbox>
+      <Checkbox 
+        key={index} 
+        value={item.value} 
+        checked={observeChecked(item.value)} 
+        onChange={(value: ValueType | undefined, checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => handleAvails(event)} 
+      >
+        {item.label}
+      </Checkbox>
     )
   })
 
@@ -311,11 +340,12 @@ export default function MoviesFilter() {
     {value: "5", label: "Physical"},
     {value: "6", label: "TV"}
   ];
-  const showReleases: CheckboxProps["onChange"] = (e) => {
-    setMenu((obj) => ({...obj, release_typs: e.target.checked}))
-    setFilters((obj) => ({...obj, release_types: []}))
+  const showReleases = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMenu((obj) => ({...obj, release_typs: e.target.checked}));
+    setFilters((obj) => ({...obj, release_types: []}));
+    dispatch(queryBtn(true))
   }
-  const handleReleases: CheckboxProps["onChange"] = (e) => {
+  const handleReleases = (e:React.ChangeEvent<HTMLInputElement>) => {
     const itExist = filters.release_types.find((item:string) => item == e.target.value);
     dispatch(queryBtn(true))
     if(itExist){
@@ -331,7 +361,14 @@ export default function MoviesFilter() {
   }
   const checkReleasesOpts = releaseTypes.map((item, index) => {
     return (
-      <Checkbox key={index} value={item.value} checked={observeReleases(item.value)} onChange={handleReleases} >{item.label}</Checkbox>
+      <Checkbox 
+        key={index} 
+        value={item.value} 
+        checked={observeReleases(item.value)} 
+        onChange={(value: ValueType | undefined, checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => handleReleases(event)} 
+      >
+        {item.label}
+      </Checkbox>
     )
   })
 
@@ -370,86 +407,33 @@ export default function MoviesFilter() {
   }
 
   // handle date picker //done
-  const handleStartDate:  DatePickerProps['onChange'] = (date, dateString) => {
+  const handleStartDate = (date:Date) => {
+    let dateString = (new Date(date).toISOString().slice(0,10));
     dispatch(queryBtn(true))
     setFilters((obj) => ({...obj, release_date: {...filters.release_date, from: dateString.toString()}}))
   }
-  const handleEndDate: DatePickerProps['onChange'] = (date, dateString) => {
+  const handleEndDate = (date:Date) => {
+    let dateString = (new Date(date).toISOString().slice(0,10));
     dispatch(queryBtn(true))
     setFilters((obj) => ({...obj, release_date: {...filters.release_date, to: dateString.toString()}}))
   }
 
   // handle keyword
-  const handleKeyword: InputProps["onChange"] = (e) => {
+  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(queryBtn(true))
     setFilters((obj) => ({...obj, keyword: e.target.value}));
   }
 
   // handle show props
-  const handleShowMe = (e: RadioChangeEvent) => {
+  const handleShowMe = (value:any) => {
     dispatch(queryBtn(true))
-    setFilters((obj) => ({...obj, show_me: e.target.value}))
+    setFilters((obj) => ({...obj, show_me: value}))
   }
 
   // mapped countries select
  const countriesObj = (Object.entries(Countries).map((item) => {
   return {value: item[0], label: item[1]}
  }));
-
-  // slider props for 
-    //vote
-  const userVotesMarks: SliderSingleProps['marks'] = {
-    0: '0',
-    10: '.',
-    20: '100',
-    30: '.',
-    40: '200',
-    50: '.',
-    60: '300',
-    70: '.',
-    80: '400',
-    90: '.',
-    100: "500"
-  };
-    //score
-  const userScoreMarks: SliderSingleProps['marks'] = {
-    0: '0',
-    10: '.',
-    20: '.',
-    30: '.',
-    40: '.',
-    50: '5',
-    60: '.',
-    70: '.',
-    80: '.',
-    90: '.',
-    100: "10"
-  };
-    // runtime
-  const runtimeMark: SliderSingleProps['marks'] = {
-    0: '0',
-    5: '.',
-    10: '.',
-    15: '.',
-    20: '.',
-    25: '100',
-    30: '.',
-    35: '.',
-    40: '.',
-    45: '.',
-    50: "200",
-    55: '.',
-    60: '.',
-    65: '.',
-    70: '.',
-    75: '300',
-    80: '.',
-    85: '.',
-    90: '.',
-    95: '.',
-    100: "400"
-  }
-
 
   // submit query function
   const submitQuery = () => {
@@ -627,6 +611,51 @@ export default function MoviesFilter() {
   borderTop: "1px solid var(--line)",
   marginTop: "10px"
  }
+
+  // option sort select
+  const renderMenuItem = (label:any, item:any) => {
+    return (
+      <span>{label}</span>
+    );
+  };
+
+  // option country select
+  const renderMenuItem2 = (label:any, item:any) => {
+    return(
+      <div style={selectStyls}>
+        <span style={countriesFlag}><Image alt='' width={20} height={20} src={`https://flagsapi.com/${item.value}/flat/64.png`} /></span>
+        <span>{item.label}</span>
+      </div>
+    )
+  }
+
+  const renderValue2 = (value:any, items:any) => {
+    return (
+      <div style={selectStyls}>
+        <span style={countriesFlag}><Image alt='' width={20} height={20} src={`https://flagsapi.com/${value}/flat/64.png`} /></span>
+        <span>{value}</span>
+      </div>
+    );
+  };
+
+  // option certificate
+
+  const tooltip = (val:string) => {
+    return (
+      <Tooltip>
+        {val}.
+      </Tooltip>
+    )
+  }
+
+  const renderMenuItem3 = (label:any, item:any) => {
+    return(
+      <Whisper placement="top" controlId="control-id-hover" trigger="hover" speaker={tooltip(label)}>
+        <span>{item.value}</span>
+      </Whisper>
+    )
+  }
+ 
  
 
   return (
@@ -640,21 +669,16 @@ export default function MoviesFilter() {
         <div className={sortClass}>
           <div>Sort Result By?</div>
           <div>
-            <Select
-              defaultValue={filters.sort}
-              style={{ width: "100%", marginTop: "10px"}}
-              onChange={handleSort}
-              options={[
-                { value: "", label: 'Choose Sorting?'},
-                { value: 'popularity_desc', label: 'Popularity Descending' },
-                { value: 'popularity_asc', label: 'Popularity Ascending' },
-                { value: 'rating_desc', label: 'Rating Descending' },
-                { value: 'rating_asc', label: 'Rating Ascending' },
-                { value: 'release_date_asc', label: 'Release Date Ascending' },
-                { value: 'release_date_desc', label: 'Release Date Descending' },
-                { value: 'title_asc', label: 'Title A-Z' },
-                { value: 'title_desc', label: 'Title Z-A' },
-              ]}
+            <SelectPicker
+              defaultValue={filters?.sort}
+              // value={filters?.sort}
+              style={{width: "100%", marginTop: "10px"}}
+              labelKey="label"
+              valueKey="value"
+              placeholder="Select User"
+              renderMenuItem={renderMenuItem}
+              data={optionSort}
+              onChange={(value:ValueType) => handleSort(value)}
             />
           </div>
         </div>
@@ -668,23 +692,17 @@ export default function MoviesFilter() {
         <div className={watchClass}>
           <div className={styls.menuHead}>Country</div>
           <div className={styls.menuHeadDrop}>
-            <Select
+            <SelectPicker
               defaultValue={country_code}
-              style={{ width: "100%", marginTop: "10px"}}
-              onChange={handleWhere}
-              options={countriesObj}
-              optionRender={(option) => (
-                <div style={selectStyls}>
-                  <span style={countriesFlag}><Image alt='' width={20} height={20} src={`https://flagsapi.com/${option.value}/flat/64.png`} /></span>
-                  <span>{option.label}</span>
-                </div>
-              )}
-              labelRender={(label) => (
-                <div style={{...selectStyls}}>
-                  <span style={countriesFlag}><Image alt='' width={20} height={20} src={`https://flagsapi.com/${label.value}/flat/64.png`} /></span>
-                  <span>{label.label}</span>
-                </div>
-              )}
+              // value={filters?.sort}
+              style={{width: "100%", marginTop: "10px"}}
+              labelKey="label"
+              valueKey="value"
+              placeholder="Select User"
+              renderMenuItem={renderMenuItem2}
+              renderValue={renderValue2}
+              data={countriesObj}
+              onChange={(value:ValueType) => handleWhere(value)}
             />
           </div>
           <div className={styls.watchProviders}>{providerData}</div>
@@ -702,11 +720,11 @@ export default function MoviesFilter() {
           <div className={styls.showMe}>
             <div className={styls.menuHead}>Show Me</div>
             <div className={styls.showCont}>
-              <Radio.Group onChange={handleShowMe} value={filters.show_me}>
+              <RadioGroup onChange={(value:Value) => handleShowMe(value)} name="" value={filters.show_me}>
                 <Radio value={"all"}>Everything</Radio>
                 <Radio value={"not_seen"}>Movies I Havent Seen</Radio>
                 <Radio value={"already_seen"}>Movies I Have Seen</Radio>
-              </Radio.Group>
+              </RadioGroup>
             </div>
           </div>
 
@@ -714,9 +732,10 @@ export default function MoviesFilter() {
             <div className={styls.menuHead}>Availabilities</div>
             <div>
               <Checkbox 
+                defaultChecked
                 style={{marginTop: "10px"}}
-                checked={menu.availabilities} 
-                onChange={makeAvail}
+                checked={menu.availabilities}
+                onChange={(value: ValueType | undefined, checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => makeAvail(event)}
               >
                 Search All Availabilities?
               </Checkbox>
@@ -733,7 +752,7 @@ export default function MoviesFilter() {
                 <Checkbox 
                   style={{marginTop: "10px"}}
                   checked={menu.release_typs} 
-                  onChange={showReleases}
+                  onChange={(value: ValueType | undefined, checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => showReleases(event)}
                 >
                   Search All Releases?
                 </Checkbox>
@@ -745,11 +764,22 @@ export default function MoviesFilter() {
             <div className={styls.datePickerEls}>
               <div className={styls.datePickEl}>
                 <small>from</small>
-                <DatePicker value={dayjs(filters.release_date.from)} style={{width: "100%"}} onChange={handleStartDate} />
+                <DatePicker 
+                  value={new Date(filters.release_date.from)} 
+                  style={{width: "100%"}} 
+                  // onChange={(date: Date) => console.log()}
+                  onChangeCalendarDate={(date: Date, event) => handleStartDate(date)}
+                />
               </div>
               <div className={styls.datePickEl}>
                 <small>to</small>
-                <DatePicker value={dayjs(filters.release_date.to)} style={{width: "100%"}} onChange={handleEndDate} />
+                {/* <DatePicker value={dayjs(filters.release_date.to)} style={{width: "100%"}} onChange={handleEndDate} /> */}
+                <DatePicker 
+                  value={new Date(filters.release_date.to)} 
+                  style={{width: "100%"}} 
+                  // onChange={(date: Date) => console.log()}
+                  onChangeCalendarDate={(date: Date, event) => handleEndDate(date)}
+                />
               </div>
             </div>
           </div>
@@ -765,52 +795,32 @@ export default function MoviesFilter() {
           <div className={styls.certification}>
             <div className={styls.menuHead}>Certification</div>
             <div className={styls.certificateSelect}>
-              <Select
-                defaultValue={filters.certification}
-                style={{ width: "100%" }}
-                onChange={handleCertificate}
-                options={certificateOptions}
-                optionRender={(option) => (
-                  <div>
-                    <Tooltip title={option.label}>
-                      <span>{option.value}</span>
-                    </Tooltip>
-                  </div>
-                )}
+              <SelectPicker
+                defaultValue={filters?.certification}
+                // value={filters?.sort}
+                style={{width: "100%", marginTop: "5px"}}
+                labelKey="label"
+                valueKey="value"
+                placeholder="Select Certification"
+                renderMenuItem={renderMenuItem3}
+                data={certificateOptions}
+                onChange={(value:ValueType) => handleCertificate(value)}
               />
             </div>
           </div>
 
-          {/* <div className={styls.language}>
-            <div className={styls.menuHead}>Language</div>
-            <div>
-              <Select 
-                style={{ width: "100%", marginTop: "10px"}}
-                disabled
-              />
-            </div>
-          </div> */}
-
           <div className={styls.userScore}>
             <div className={styls.menuHead}>User Score</div>
             <div className={styls.sliderProps}>
-              <Slider 
-                onChange={(values: number[]) => handleUserScore(values)}
-                range
-                style={{width: "95%", height: "100%"}} 
-                marks={userScoreMarks} 
-                step={10} 
-                tooltip={{
-                  formatter: (value : number | undefined) => {
-                    return (
-                      <div>{value == undefined ? 0 / 10 : value / 10}</div>
-                    )
-                  }
-                  
+              <RangeSlider 
+                style={{marginTop: "10px"}}
+                defaultValue={[filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]}
+                graduated
+                step={10}
+                onChange={(value:[number, number]) => handleUserScore(value)}
+                renderMark={(mark:number) => {
+                  return <span>{(mark / 10) % 5 == 0 ? mark : ''}</span>
                 }}
-                defaultValue={
-                  [filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]
-                }
               />
             </div>
           </div>
@@ -819,41 +829,40 @@ export default function MoviesFilter() {
             <div className={styls.menuHead}>User Votes</div>
             <div className={styls.sliderProps}>
               <Slider 
-              onChange={(value: number) => handleUserVotes(value)}
-              style={{width: "95%", height: "100%"}} 
-              marks={userVotesMarks} 
-              step={10} 
-              tooltip={{
-                formatter: (value : number | undefined) => {
-                  return (
-                    <div>{value == undefined ? 0 * 5 : value * 5}</div>
-                  )
-                }
-                
-              }}
-              defaultValue={filters.user_votes / 5} />
+                style={{marginTop: "10px"}}
+                defaultValue={filters.user_votes / 5}
+                graduated
+                progress
+                step={10}
+                onChange={(value:number) => handleUserVotes(value)}
+                renderMark={(mark:number) => {
+                  return <span>{(mark * 5) % 100 == 0 ? mark * 5 : ''}</span>
+                }}
+                renderTooltip={(value: number | undefined) => {
+                  return <div>{value == undefined ? 0 * 5 : value * 5}</div>
+                }}
+              />
             </div>
           </div>
 
           <div className={styls.runtime}>
             <div className={styls.menuHead}>Runtime</div>
             <div className={styls.sliderProps}>
-              <Slider 
-              range
-              onChange={(values: number[]) => handleRuntime(values)}
-              style={{width: "95%", height: "100%"}} 
-              marks={runtimeMark}
-              step={20} 
-              tooltip={{
-                formatter: (value : number | undefined) => {
-                  return (
-                    <div style={{fontSize: "12px"}}>{value == undefined ? 0 * 4 : value * 4} minutes</div>
-                  )
+              <RangeSlider 
+                style={{marginTop: "10px"}}
+                defaultValue={
+                  [(filters.runtime.min/4), (filters.runtime.max == 0 ? (400/4) : (filters.runtime.max/4))]
                 }
-              }}
-              defaultValue={
-                [(filters.runtime.min/4), (filters.runtime.max == 0 ? (400/4) : (filters.runtime.max/4))]
-              } />
+                graduated
+                step={5}
+                onChange={(value:[number, number]) => handleRuntime(value)}
+                renderMark={(mark:number) => {
+                  return <span>{(mark * 1 * 4) % 100 == 0 ? mark * 4 : ''}</span>
+                }}
+                renderTooltip={(value: number|undefined) => {
+                  return <div style={{fontSize: "12px"}}>{value == undefined ? 0 * 4 : value * 4} minutes</div>
+                }}
+              />
             </div>
           </div>
 
@@ -862,7 +871,7 @@ export default function MoviesFilter() {
             <div className={styls.keywordCont}>
               <Input 
                 placeholder='Search Keyword'
-                onChange={handleKeyword}
+                onChange={(value: string, event: React.ChangeEvent<HTMLInputElement>) => handleKeyword(event)}
                 value={filters.keyword}
               />
             </div>

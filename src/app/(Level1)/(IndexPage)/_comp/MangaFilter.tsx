@@ -2,26 +2,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styls from "./filter.module.css"
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Select, Checkbox, CheckboxProps, Slider, SliderSingleProps, DatePicker, DatePickerProps, Tooltip, Input, InputProps, Radio, Switch } from 'antd';
-import type { RadioChangeEvent } from 'antd';
+import { Switch } from 'antd';
 import { FaChevronRight } from 'react-icons/fa';
 import clsx from 'clsx';
 import useSWR from 'swr';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { chooseCountry } from '@/store/Slices/UserSlice';
 import { useInView } from 'react-intersection-observer';
 
-import dayjs from 'dayjs';
 import { isBtnInView, queryBtn, setQueriesParams } from '@/store/Slices/QuerySlice';
 
+// RSUITE1 UI
+import { SelectPicker } from 'rsuite';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
+import { ValueType as Value } from 'rsuite/esm/Radio';
+import { Radio, RadioGroup } from 'rsuite';
+import { Checkbox } from 'rsuite';
+import { DatePicker } from 'rsuite';
+import { Tooltip, Whisper } from 'rsuite';
+import { Slider, RangeSlider } from 'rsuite';
+import { Input } from 'rsuite';
+import { Toggle } from 'rsuite';
+
 const dateFormater = (date: Date) => {
-    let datex = date;
-    let year = date.getFullYear();
-    let month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : `0${date.getMonth()+1}`;
-    let day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
-    let formatedDate = `${year}-${month}-${day}`
-    return formatedDate
+  let datex = date;
+  let year = date.getFullYear();
+  let month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : `0${date.getMonth()+1}`;
+  let day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+  let formatedDate = `${year}-${month}-${day}`
+  return formatedDate
 }
   
 const jikanHeader = {
@@ -219,29 +228,31 @@ export default function MangaFilter() {
       }
     
       // handle date picker //done
-      const handleStartDate:  DatePickerProps['onChange'] = (date, dateString) => {
+      const handleStartDate = (date:Date) => {
+        const dateString = new Date(date).toISOString().slice(0,10);
         dispatch(queryBtn(true))
         setFilters((obj) => ({...obj, release_date: {...filters.release_date, from: dateString.toString()}}))
       }
-      const handleEndDate: DatePickerProps['onChange'] = (date, dateString) => {
+      const handleEndDate = (date:Date) => {
+        const dateString = new Date(date).toISOString().slice(0,10);
         dispatch(queryBtn(true))
         setFilters((obj) => ({...obj, release_date: {...filters.release_date, to: dateString.toString()}}))
       }
     
       // handle keyword
-      const handleKeyword: InputProps["onChange"] = (e) => {
+      const handleKeyword = (e:React.ChangeEvent<HTMLInputElement>) => {
         dispatch(queryBtn(true))
         setFilters((obj) => ({...obj, keyword: e.target.value}));
       }
     
       // handle show props
-      const handleShowMe = (e: RadioChangeEvent) => {
+      const handleShowMe = (value: any) => {
         dispatch(queryBtn(true))
-        setFilters((obj) => ({...obj, show_me: e.target.value}))
+        setFilters((obj) => ({...obj, show_me: value}))
       }
   
       // handle limit
-      const handleLimit: InputProps["onChange"] = (e) => {
+      const handleLimit = (e:React.ChangeEvent<HTMLInputElement>) => {
         dispatch(queryBtn(true))
         setFilters((obj) => ({...obj, limit: parseInt(e.target.value || "0")}));
       }
@@ -277,21 +288,6 @@ export default function MangaFilter() {
           setFilters((obj) => ({...obj, sfw: "true"}))
         }
       }
-    
-      //score
-      const userScoreMarks: SliderSingleProps['marks'] = {
-        0: '0',
-        10: '.',
-        20: '.',
-        30: '.',
-        40: '.',
-        50: '5',
-        60: '.',
-        70: '.',
-        80: '.',
-        90: '.',
-        100: "10"
-      };
     
       
     // generate alphabets a to z
@@ -427,7 +423,42 @@ export default function MangaFilter() {
       dispatch(queryBtn(false))
   
     }
-  
+
+    // option sort
+    const optionSort = [
+      { value: "", label: 'Choose Sorting?'},
+      { value: 'asc', label: 'Ascending Order' },
+      { value: 'desc', label: 'Descending Order' },
+    ]
+
+    // option sort select
+    const renderMenuItem = (label:any, item:any) => {
+      return (
+        <span>{label}</span>
+      );
+    };
+    
+    // option type 
+    const optionType = [
+      { value: "", label: 'Choose Type?'},
+      { value: 'manga', label: 'Manga' },
+      { value: 'novel', label: 'Novel' },
+      { value: 'lightnovel', label: 'Lightnovel' },
+      { value: 'oneshot', label: 'Oneshot' },
+      { value: 'doujin', label: 'Doujin' },
+      { value: 'manhwa', label: 'manhwa' },
+      { value: 'manhua', label: 'Manhua' },
+    ]
+
+    // option status
+    const optionStatus = [
+      { value: "", label: 'Choose Status?'},
+      { value: 'publishing', label: 'Publishing' },
+      { value: 'complete', label: 'Complete' },
+      { value: 'haitus', label: 'Haitus' },
+      { value: 'discontinued', label: 'Discontinued' },
+      { value: 'upcoming', label: 'Upcoming' },
+    ]
   
     return (
       <div className={styls.filterCont}>
@@ -440,7 +471,7 @@ export default function MangaFilter() {
           <div className={sortClass}>
             <div>Sort Result By?</div>
             <div>
-              <Select
+              {/* <Select
                 defaultValue={filters.sort}
                 style={{ width: "100%", marginTop: "10px"}}
                 onChange={handleSort}
@@ -449,6 +480,17 @@ export default function MangaFilter() {
                   { value: 'asc', label: 'Ascending Order' },
                   { value: 'desc', label: 'Descending Order' },
                 ]}
+              /> */}
+              <SelectPicker
+                defaultValue={filters?.sort}
+                // value={filters?.sort}
+                style={{width: "100%", marginTop: "10px"}}
+                labelKey="label"
+                valueKey="value"
+                placeholder="Select Sort"
+                renderMenuItem={renderMenuItem}
+                data={optionSort}
+                onChange={(value:ValueType) => handleSort(value)}
               />
             </div>
           </div>
@@ -478,9 +520,14 @@ export default function MangaFilter() {
             <div className={styls.showMe} id='for Limit'>
               <div className={styls.menuHead}>Limit?</div>
               <div className={styls.showCont}>
-                <Input 
+                {/* <Input 
                   placeholder='Enter Limit'
                   onChange={handleLimit}
+                  value={filters.limit}
+                /> */}
+                <Input 
+                  placeholder='Enter Limit?'
+                  onChange={(value: string, event: React.ChangeEvent<HTMLInputElement>) => handleLimit(event)}
                   value={filters.limit}
                 />
               </div>
@@ -489,18 +536,25 @@ export default function MangaFilter() {
             <div className={styls.showMe}>
               <div className={styls.menuHead}>Show Me</div>
               <div className={styls.showCont}>
-                <Radio.Group onChange={handleShowMe} value={filters.show_me}>
+                <RadioGroup onChange={(value:Value) => handleShowMe(value)} name="" value={filters.show_me}>
                   <Radio value={"all"}>Everything</Radio>
-                  <Radio value={"not_seen"}>Manga I Havent Seen</Radio>
-                  <Radio value={"already_seen"}>Manga I Have Seen</Radio>
-                </Radio.Group>
+                  <Radio value={"not_seen"}>Anime I Havent Seen</Radio>
+                  <Radio value={"already_seen"}>Anime I Have Seen</Radio>
+                </RadioGroup>
               </div>
             </div>
-  
+            
+            {/* to be worked on */}
             <div className={styls.safeForWork}>
               <div className={styls.menuHead}>Show Expilicit Content</div>
               <div className={styls.showCont}>
-                <Switch defaultChecked={Boolean(filters?.sfw == "true" ? true : false)} onChange={handleSFW} />
+                <Toggle 
+                  defaultChecked={Boolean(filters?.sfw == "true" ? true : false)}
+                  onChange={(checked:boolean, event) => handleSFW(checked)}
+                  color="blue"
+                >
+                  Blue
+                </Toggle>
               </div>
             </div>
   
@@ -509,11 +563,23 @@ export default function MangaFilter() {
               <div className={styls.datePickerEls}>
                 <div className={styls.datePickEl}>
                   <small>from</small>
-                  <DatePicker value={dayjs(filters.release_date.from)} style={{width: "100%"}} onChange={handleStartDate} />
+                  {/* <DatePicker value={dayjs(filters.release_date.from)} style={{width: "100%"}} onChange={handleStartDate} /> */}
+                  <DatePicker 
+                    value={new Date(filters.release_date.from)} 
+                    style={{width: "100%"}} 
+                    // onChange={(date: Date) => console.log()}
+                    onChangeCalendarDate={(date: Date, event) => handleStartDate(date)}
+                  />
                 </div>
                 <div className={styls.datePickEl}>
                   <small>to</small>
-                  <DatePicker value={dayjs(filters.release_date.to)} style={{width: "100%"}} onChange={handleEndDate} />
+                  {/* <DatePicker value={dayjs(filters.release_date.to)} style={{width: "100%"}} onChange={handleEndDate} /> */}
+                  <DatePicker 
+                    value={new Date(filters.release_date.to)} 
+                    style={{width: "100%"}} 
+                    // onChange={(date: Date) => console.log()}
+                    onChangeCalendarDate={(date: Date, event) => handleEndDate(date)}
+                  />
                 </div>
               </div>
             </div>
@@ -521,7 +587,7 @@ export default function MangaFilter() {
             <div className={styls.language} id="for Type">
               <div className={styls.menuHead}>Type</div>
               <div>
-                <Select 
+                {/* <Select 
                   defaultValue={filters.type}
                   style={{ width: "100%", marginTop: "10px"}}
                   onChange={handleType}
@@ -535,6 +601,17 @@ export default function MangaFilter() {
                     { value: 'manhwa', label: 'manhwa' },
                     { value: 'manhua', label: 'Manhua' },
                   ]}
+                /> */}
+                <SelectPicker
+                  defaultValue={filters?.type}
+                  // value={filters?.sort}
+                  style={{width: "100%", marginTop: "10px"}}
+                  labelKey="label"
+                  valueKey="value"
+                  placeholder="Select Type?"
+                  renderMenuItem={renderMenuItem}
+                  data={optionType}
+                  onChange={(value:ValueType) => handleType(value)}
                 />
               </div>
             </div>
@@ -542,7 +619,7 @@ export default function MangaFilter() {
             <div className={styls.language} id="for Status">
               <div className={styls.menuHead}>Status</div>
               <div>
-                <Select 
+                {/* <Select 
                   defaultValue={filters.status}
                   style={{ width: "100%", marginTop: "10px"}}
                   onChange={handleStatus}
@@ -554,6 +631,17 @@ export default function MangaFilter() {
                     { value: 'discontinued', label: 'Discontinued' },
                     { value: 'upcoming', label: 'Upcoming' },
                   ]}
+                /> */}
+                <SelectPicker
+                  defaultValue={filters?.status}
+                  // value={filters?.sort}
+                  style={{width: "100%", marginTop: "10px"}}
+                  labelKey="label"
+                  valueKey="value"
+                  placeholder="Select Rating?"
+                  renderMenuItem={renderMenuItem}
+                  data={optionStatus}
+                  onChange={(value:ValueType) => handleStatus(value)}
                 />
               </div>
             </div>
@@ -569,7 +657,7 @@ export default function MangaFilter() {
             <div className={styls.userScore}>
               <div className={styls.menuHead}>User Score</div>
               <div className={styls.sliderProps}>
-                <Slider 
+                {/* <Slider 
                   onChange={(values: number[]) => handleUserScore(values)}
                   range
                   style={{width: "95%", height: "100%"}} 
@@ -586,6 +674,16 @@ export default function MangaFilter() {
                   defaultValue={
                     [filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]
                   }
+                /> */}
+                <RangeSlider 
+                  style={{marginTop: "10px"}}
+                  defaultValue={[filters.user_score.min*10, (filters.user_score.max == 0 ? 10*10 : filters.user_score.max *10)]}
+                  graduated
+                  step={10}
+                  onChange={(value:[number, number]) => handleUserScore(value)}
+                  renderMark={(mark:number) => {
+                    return <span>{(mark / 10) % 5 == 0 ? mark : ''}</span>
+                  }}
                 />
               </div>
             </div>
@@ -593,11 +691,11 @@ export default function MangaFilter() {
             <div className={styls.searchKeyStroke}>
               <div className={styls.menuHead}>Keyword</div>
               <div className={styls.keywordCont}>
-                <Input 
-                  placeholder='Search Keyword'
-                  onChange={handleKeyword}
-                  value={filters.keyword}
-                />
+              <Input 
+                placeholder='Search Keyword'
+                onChange={(value: string, event: React.ChangeEvent<HTMLInputElement>) => handleKeyword(event)}
+                value={filters.keyword}
+              />
               </div>
             </div>
   

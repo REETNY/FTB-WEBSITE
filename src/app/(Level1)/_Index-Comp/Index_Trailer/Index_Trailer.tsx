@@ -7,7 +7,9 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { getDataByUrl } from '@/actions/universal/getDataByUrl';
 
-import { Select } from 'antd';
+import { SelectPicker } from 'rsuite';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
+
 import { getDataByUrl2 } from '@/actions/universal/getDataByUrl2';
 import { getVideosById } from '@/actions/level1/getVideosById';
 import Trailer_Mapper from '../Item_Mapper/Trailer_Mapper';
@@ -195,26 +197,11 @@ export default function Index_Trailer() {
         left: `${refz.current}%`,
     }
 
-    const { Option } = Select
     const options: CustomOptionType[] = [
         ...popular_cont?.map((item:string) => {
             return {value: item, label:item}
         })
     ];
-    const optionRender = (option: CustomOptionType) => {
-        return (
-          <Option key={option.value} value={option.value} label={option.label}>
-            <span 
-                onClick={(e) => saveState(option.value, "trending")} 
-                className={saveStates.trending != option.value ? styls.nav_childs : `${styls.nav_childs} ${styls.active}`}
-
-            >
-                {option.label}
-            </span>
-          </Option>
-        );
-    };
-
 
     const backstyle = {
         background: `linear-gradient(to right, rgba(3, 37, 65, .7) 0%, rgba(3, 37, 65, .7) 100% ),
@@ -238,13 +225,12 @@ export default function Index_Trailer() {
                         </span>
                     </div>
                     <div className={styls.small_device_trending_nav}>
-                    <Select
-                        style={{ width: 200 }}
-                        defaultValue={saveStates.trending}
-                        value={saveStates.trending}
-                    >
-                        {options.map(optionRender)}
-                    </Select>
+                        <SelectPicker
+                            data={options}
+                            style={{ width: "170px" }}
+                            defaultValue={saveStates?.trending}
+                            onChange={(value: ValueType, event: React.SyntheticEvent) => saveState(value, "trending")}
+                        />
                     </div>
                 </div>
         

@@ -67,10 +67,7 @@ export default function MovieData(movieData: Movie) {
         menuBtn: false,
         ratingMenu: false
     });
-
-    console.log(movieSettings);
     
-
     const [rating, setRating] = useState({
         original: 0,
         dummy: 0

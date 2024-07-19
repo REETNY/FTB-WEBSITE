@@ -1,7 +1,8 @@
 import { StoreProvider } from "@/store/StoreProvider"
 import "./globals.css"
 import { Roboto } from "next/font/google"
-import { AntdRegistry } from '@ant-design/nextjs-registry';
+import 'rsuite/dist/rsuite-no-reset.min.css';
+import { CustomProvider } from 'rsuite';
 
 export const metadata = {
   title: 'Next.js',
@@ -17,19 +18,12 @@ export default function RootLayout({
 }) {
 
   return (
-    // <StoreProvider>
-    //   <html lang="en">
-    //     <body className={roboto.className}>
-    //       {children}
-    //     </body>
-    //   </html>
-    // </StoreProvider>
     <html lang="en">
       <body className={roboto.className}>
         <StoreProvider>
-          <AntdRegistry>
+          <CustomProvider>
             {children}
-          </AntdRegistry>
+          </CustomProvider>
         </StoreProvider>
       </body>
     </html>

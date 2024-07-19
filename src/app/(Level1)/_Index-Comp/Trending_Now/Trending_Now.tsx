@@ -9,7 +9,9 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 
-import { Select } from 'antd';
+import { SelectPicker } from 'rsuite';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
+
 
 interface CustomOptionType{
     value: string,
@@ -124,26 +126,11 @@ export default function Trending_Now() {
         )
     })
 
-    const { Option } = Select
     const options: CustomOptionType[] = [
         ...popular_cont?.map((item:string) => {
             return {value: item, label:item}
         })
     ];
-    const optionRender = (option: CustomOptionType) => {
-        return (
-          <Option key={option.value} value={option.value} label={option.label}>
-            <span 
-                onClick={(e) => saveState(option.value, "trending")} 
-                className={saveStates.trending != option.value ? styls.nav_childs : `${styls.nav_childs} ${styls.active}`}
-
-            >
-                {option.label}
-            </span>
-          </Option>
-        );
-    };
-    
 
   return (
     <div className={styls.trending_now_container} >
@@ -161,13 +148,12 @@ export default function Trending_Now() {
                 </span>
             </div>
             <div className={styls.small_device_trending_nav}>
-                <Select
-                    style={{ width: 200 }}
-                    defaultValue={saveStates.trending}
-                    value={saveStates.trending}
-                >
-                    {options.map(optionRender)}
-                </Select>
+                <SelectPicker
+                    data={options}
+                    style={{ width: "170px" }}
+                    defaultValue={saveStates?.trending}
+                    onChange={(value: ValueType, event: React.SyntheticEvent) => saveState(value, "trending")}
+                />
             </div>
         </div>
 

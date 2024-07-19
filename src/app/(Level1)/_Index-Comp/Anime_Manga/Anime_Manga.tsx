@@ -6,10 +6,11 @@ import Item_Mapper2 from '../Item_Mapper/Item_Mapper2';
 import 'swiper/css';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { getDataByUrl } from '@/actions/universal/getDataByUrl';
 
-import { Select } from 'antd';
+import { SelectPicker } from 'rsuite';
+
 import { getDataByUrl2 } from '@/actions/universal/getDataByUrl2';
+import { ValueType } from 'rsuite/esm/InputPicker/InputPicker';
 
 const popular_cont = ["Anime", "Manga"];
 
@@ -133,25 +134,11 @@ export default function Anime_Manga() {
         left: `${refz.current}%`,
     }
 
-    const { Option } = Select
     const options: CustomOptionType[] = [
         ...popular_cont?.map((item:string) => {
             return {value: item, label:item}
         })
     ];
-    const optionRender = (option: CustomOptionType) => {
-        return (
-          <Option key={option.value} value={option.value} label={option.label}>
-            <span 
-                onClick={(e) => saveState(option.value, "trending")} 
-                className={saveStates.trending != option.value ? styls.nav_childs : `${styls.nav_childs} ${styls.active}`}
-
-            >
-                {option.label}
-            </span>
-          </Option>
-        );
-    };
 
   return (
     <div className={styls.trending_now_container} >
@@ -169,13 +156,12 @@ export default function Anime_Manga() {
                 </span>
             </div>
             <div className={styls.small_device_trending_nav}>
-            <Select
-                style={{ width: 200 }}
-                defaultValue={saveStates.trending}
-                value={saveStates.trending}
-            >
-                {options.map(optionRender)}
-            </Select>
+                <SelectPicker
+                    data={options}
+                    style={{ width: "170px" }}
+                    defaultValue={saveStates?.trending}
+                    onChange={(value: ValueType, event: React.SyntheticEvent) => saveState(value, "trending")}
+                />
             </div>
         </div>
 
