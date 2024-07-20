@@ -328,7 +328,49 @@
 
 
 /* media query */
-@media only screen and (max-width: 750px){
+/* media query */
+
+@media only screen and (max-width: 380px){
+    .movieTab{
+        width: 95%;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .movieTab2{
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: 1fr;
+
+    }
+
+    .movieHero{
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    .movieControlBtn{display: none;}
+    .movieRating{
+        display: none;
+    }
+
+    .movieDetails{
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
+    .xsSynopsis{
+        display: block;
+        color: var(--text-2);
+        font-size: 13px;
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (min-width: 381px) and (max-width: 750px){
 
     .movieTab{
         width: 320px;

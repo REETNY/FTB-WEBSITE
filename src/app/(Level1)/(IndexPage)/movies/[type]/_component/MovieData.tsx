@@ -157,7 +157,7 @@ export default function MovieData(movieData: Movie) {
     const formattedTitle = movieTitle.replaceAll(regExp, "-");
     
   return (
-    <OutsideClickHandler 
+    <OutsideClickHandler
         onOutsideClick={() => setSettings((obj) => ({...obj, menuBtn: false, ratingMenu: false}))} 
     >
         <div className={styles.movieTab}>
