@@ -89,10 +89,6 @@ export default function Introduction({FTC, MOVIE, CAST, SCENE}: {FTC:FTCProps, M
   const styles2 = { 
     backgroundImage: `linear-gradient(to right, rgba(${r},${g},${b}, 1) 15%, rgba(${r},${g},${b}, .3) 100%)`
   };
-
-  console.log(
-    parseFloat(MOVIE.vote_average.toFixed(1))
-  );
   
 
   function formattedYear(val:string){
@@ -199,7 +195,12 @@ export default function Introduction({FTC, MOVIE, CAST, SCENE}: {FTC:FTCProps, M
               <div className={styls.user_score_movie}>User Score</div>
             </div>
 
-            <div></div>
+            <div>
+              <div onClick={playTrailer} className={styls.playTrailerBtn}>
+                <span><FaPlay /></span>
+                <span>Play Trailer</span>
+              </div>
+            </div>
 
           </div>
           

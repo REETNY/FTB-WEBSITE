@@ -92,7 +92,7 @@ export default function Introduction({FTC, CAST, SERIE, SCENE}:{FTC:FTCProps, SE
       )
     })
   
-    let {r, g, b} = hexToRgb(FTC?.Vibrant);
+    let {r, g, b} = hexToRgb(FTC?.DarkVibrant);
   
     const styles = {
       backgroundImage: `url(${tmdb_image_url+SERIE.backdrop_path})`,
@@ -205,7 +205,10 @@ export default function Introduction({FTC, CAST, SERIE, SCENE}:{FTC:FTCProps, SE
                 <div className={styls.user_score_movie}>User Score</div>
               </div>
   
-              <div></div>
+              <div onClick={playTrailer} className={styls.playTrailerBtn}>
+                <span><FaPlay /></span>
+                <span>Play Trailer</span>
+              </div>
   
             </div>
             

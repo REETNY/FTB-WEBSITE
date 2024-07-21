@@ -12,8 +12,9 @@ import { addHeared, addListed, addWatched_Read, addRating, clearRating } from '@
 import StarRatings from 'react-star-ratings';
 import OutsideClickHandler from 'react-outside-click-handler';
 import TrailerPlay from '@/app/(Level1)/(innerLayout)/_comp/TrailerPlay/TrailerPlay';
-import styls from "../css_styling.module.css"
-
+import styls from "../css_styling.module.css";
+import { useInView } from 'react-intersection-observer';
+import { Doughnut, Line } from "react-chartjs-2"
 
 type FTCProps = {
     Vibrant: string,
@@ -25,8 +26,6 @@ type FTCProps = {
 } | null
 
 export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCProps, CAST: any}) {
-
-
     const isSmallDevice = useMediaQuery("only screen and (max-width : 750px)");
     const dispatch = useDispatch();
     const DB = useSelector((state: RootState) => state.dataSlice.anime);
@@ -53,10 +52,10 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
     const isWatched = DB.watched.find((item:{id:number}) => item.id == ANIME.mal_id);
     const isRated = DB.rating.find((item: {id: number, rated: number}) => item.id == ANIME.mal_id);
 
-    let {r, g, b} = hexToRgb(FTC?.Vibrant);
+    let {r, g, b} = hexToRgb(FTC?.DarkVibrant);
 
   const styles = {
-    backgroundImage: `url(${ANIME.images.webp.image_url})`,
+    backgroundImage: `url(${ANIME?.images?.webp?.image_url})`,
   }
   const styles2 = { 
     backgroundImage: `linear-gradient(to right, rgba(${r},${g},${b}, 1) 15%, rgba(${r},${g},${b}, .3) 100%)`
@@ -123,6 +122,21 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
 
     let findYoutube = ANIME?.trailer?.youtube_id
 
+    const xsDevStopper = {
+        background: "red",
+        width: "100%",
+        height: "22px"
+    }
+
+    const mapp_dried = CAST?.map((item: any, index:number) => {
+        return(
+          <div key={index} className={styls.each_people}>
+            <div className={styls.people_name}>{item?.person?.name}</div>
+            <div className={styls.people_role}>{item?.positions[0]}</div>
+          </div>
+        )
+    }) || [];
+
     return (
         <div className={styls.data_info} style={styles}>
 
@@ -152,7 +166,7 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
                 <div className={styls.movieRating}>
                     <div style={{background: `rgb(${colorDecode2})`}} className={styls.innerCircle}>
                     <SemiCircle1 $color={`rgb(${colorDecode})`} $score={parseFloat(ANIME?.score.toFixed(1))} />
-                    <SemiCircle2 $color={`rgb(${colorDecode})`} $score={parseFloat(ANIME.score.toFixed(1))} />
+                    <SemiCircle2 $color={`rgb(${colorDecode})`} $score={parseFloat(ANIME?.score.toFixed(1))} />
                     {ANIME.score > 5 
                         ? <SemiCircle3 $color={`rgb(${colorDecode2})`} $score={40} /> 
                         : <div className={styls.miniCircle} style={{background: `rgb(${colorDecode2})`}}></div>
@@ -166,7 +180,10 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
                 <div className={styls.user_score_movie}>User Score</div>
                 </div>
 
-                <div></div>
+                <div onClick={playTrailer} className={styls.playTrailerBtn}>
+                    <span><FaPlay /></span>
+                    <span>Play Trailer</span>
+                </div>
 
             </div>
             
@@ -217,8 +234,8 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
                 </div>
 
                 <div onClick={playTrailer} className={styls.playTrailerBtn}>
-                <span><FaPlay /></span>
-                <span>Play Trailer</span>
+                    <span><FaPlay /></span>
+                    <span>Play Trailer</span>
                 </div>
 
             </div>
@@ -234,7 +251,7 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
 
             {/* creator, writer E.T.C and few others */}
             <div className={`${styls.data_teb_detz} ${styls.content}`}>
-                {/* {mapp_dried} */}
+                {mapp_dried}
             </div>
 
             <div className={styls.only_small_dev}>

@@ -95,10 +95,6 @@ export default function Media_Index({SCENE, THUMBS, type}: {SCENE: any, THUMBS: 
     }
     )
 
-    // console.log(few);
-    
-    console.log(Media_Backdrops, Media_Posters, Media_Popular);
-    
 
   return (
     <>

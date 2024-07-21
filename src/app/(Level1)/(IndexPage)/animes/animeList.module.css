@@ -328,11 +328,12 @@
 
 @media only screen and (max-width: 380px){
     .movieTab{
-        width: 95%;
+        min-width: 95%;
+        width: calc(100vw - 40px);
+        max-width: 95%;
         height: 150px;
         margin: 0 auto;
     }
-
     .movieTab2{
         display: grid;
         grid-template-columns: 100px 1fr;

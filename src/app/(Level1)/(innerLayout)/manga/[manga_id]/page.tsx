@@ -13,6 +13,9 @@ import { getDataVidById } from '@/actions/level2/anime/getDataVidById'
 import { getDataPicById } from '@/actions/level2/anime/getDataPicById'
 import { getDataRecommendationsById } from '@/actions/level2/anime/getDataRecommendById'
 import type { Metadata } from 'next'
+import { FaLink } from 'react-icons/fa'
+import Link from 'next/link'
+import LineChart from '../../_comp/ChartJS/LineChart'
 
 
 export const generateMetadata = async({params}: {params:{manga_id: string}}): Promise<Metadata> => {
@@ -68,15 +71,29 @@ export default async function page({params}:{params:{manga_id: string}}) {
             })
         ]
     }; 
-    
-    console.log(rev_res_2);
+
+    let authors = animeData?.data?.authors.slice(0,4);
+    let rate = animeData?.data?.score * 10;
+    let offLink = animeData?.data?.external[0].url;
+    let original_language = 'Japanese';
+    let budget = 'Nill';
+    let revenue = 'Nill';
+    let type = 'Manga';
+    let keywords = 'No Keywords!';
+    let status = animeData?.data?.status;
+    let datas: number[] = []
+
+    for(let i = 1; i <= 6; i++){
+        let ranNumber = Math.floor(Math.random() * rate);
+        datas?.push(ranNumber)
+    }
     
     
 
     return(
         <section className={stylePage.data_full_container}>
 
-            <Introduction FTC={clr_res} MANGA={animeData?.data} CAST={[]} />
+            <Introduction FTC={clr_res} MANGA={animeData?.data} CAST={authors} />
 
             <div className={stylePage.data_details}>
 
@@ -87,7 +104,50 @@ export default async function page({params}:{params:{manga_id: string}}) {
                     <Recommend_Index RECOM={recom?.data || []} type={"am"} />
                 </div>
 
-                <div className={stylePage.right_col_details}></div>
+                <div className={stylePage.right_col_details}>
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>
+                            <Link href={offLink}><FaLink /></Link>
+                        </div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Status</div>
+                        <div className={stylePage.station_info}>{status}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Original Language</div>
+                        <div className={stylePage.station_info}>{original_language}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Budget</div>
+                        <div className={stylePage.station_info}>{budget}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Revenue</div>
+                        <div className={stylePage.station_info}>{revenue}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Type</div>
+                        <div className={stylePage.station_info}>{type}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Keywords</div>
+                        <div className={stylePage.station_info_list}>{keywords}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Popularity Trend</div>
+                        <div className={stylePage.station_info_chart}>
+                            <LineChart name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkMuted} datas={datas} />
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

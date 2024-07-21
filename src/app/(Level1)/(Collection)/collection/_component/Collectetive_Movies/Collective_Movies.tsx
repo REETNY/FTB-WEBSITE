@@ -41,7 +41,7 @@ function Collective_Movies({DATAS}:{DATAS:any}) {
                 <div className={styles.collect_movie_detz}>
                     <div className={styles.collect_div_name}>{item?.title}</div>
                     <div className={styles.collect_div_release}>{getDate(item?.release_date)}</div>
-                    <div className={styles.collect_div_overview}>{item?.overview}</div>
+                    <div className={styles.collect_div_overview}>{item?.overview.length > 100 ? item?.overview.slice(0,100)+"..." : item?.overview}</div>
                 </div>
             </div>
         )

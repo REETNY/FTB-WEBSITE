@@ -205,3 +205,15 @@
 
 
 
+
+
+
+@media only screen and (max-width: 500px){
+    .details_hero{
+        grid-template-columns: 1fr;
+    }
+
+    .episodes_infom{
+        grid-template-columns: 1fr;
+    }
+}

@@ -134,7 +134,8 @@
     top: 50%;
     left: 50%;
     width: 340px;
-    height: fit-content;
+    height: calc(82px + 30px + 15px);
+    max-height: 130px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 0px;
@@ -231,6 +232,17 @@
     .head_menu{
         left: 0%;
     }
+
+   .eachHeadLink:nth-of-type(1) .head_menu{
+    left: 0%;
+   }
+   .eachHeadLink:nth-of-type(2) .head_menu{
+    left: -50%;
+   }
+   .eachHeadLink:nth-of-type(3) .head_menu{
+    left: 0%;
+   }
+
     .head_menu:last-of-type{
         left: -120%;
     }

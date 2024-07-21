@@ -6,6 +6,13 @@
     column-gap: 20px;
 }
 
+@media only screen and (max-width: 500px){
+    .reviewers_cont{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+}
+
 .reviewer_content_hero{
     width: 100%;
     height: 100%;

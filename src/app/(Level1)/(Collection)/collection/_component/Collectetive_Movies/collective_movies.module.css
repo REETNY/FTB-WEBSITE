@@ -33,7 +33,8 @@
 
 .collect_movie_hero{
     width: 100%;
-    height: 140px;
+    min-height: 140px;
+    height: 100%;
 }
 
 .collect_movie_detz{

@@ -13,7 +13,10 @@ import { getDataVidById } from '@/actions/level2/anime/getDataVidById'
 import { getDataPicById } from '@/actions/level2/anime/getDataPicById'
 import { getDataRecommendationsById } from '@/actions/level2/anime/getDataRecommendById'
 import type { Metadata } from 'next'
-
+import { FaLink } from 'react-icons/fa'
+import Link from 'next/link'
+import { getStaffById } from '@/actions/level2/anime/getStaffById'
+import LineChart from '../../_comp/ChartJS/LineChart'
 
 export const generateMetadata = async({params}: {params:{anime_id: string}}): Promise<Metadata> => {
     let ID = parseInt(params.anime_id.split("_")[0]);
@@ -37,9 +40,10 @@ export default async function page({params}:{params:{anime_id: string}}) {
     let rev_res = await getDataRevById(url, ID);
     let trl_res = await getDataVidById(url, ID);
     let pict = await getDataPicById(url, ID);
+    let staffs = await getStaffById(url, ID);
     let recom = await getDataRecommendationsById(url,ID);
 
-
+    let stfs_res = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false)
     let rev_res_2 = rev_res?.data?.map((item:any) => {
         return {author: item?.user?.username, id: item.mal_id, created_at: item?.date, content: item?.review, author_details:{
             name: item?.user?.username,
@@ -72,13 +76,27 @@ export default async function page({params}:{params:{anime_id: string}}) {
             })
         ]
     }
+
+    const score = animeData?.data?.score * 10;
+    let status = animeData?.data?.status;
+    let original_language = "Japanese";
+    let type = "Anime";
+    let budget = "nill";
+    let revenue = "nill";
+    let keywords = "No Match!";
+    let chart: number[] = [];
+    let officialLink = animeData?.data?.external?.filter((item:any) => item?.name == "Official Site" ? item : false);
+    let offLink = officialLink == undefined ? null : officialLink[0]?.url;
     
-    
+    for(let i = 1; i <= 6; i++){
+        let ranNum = Math.floor(Math.random() * 10);
+        chart?.push(ranNum)
+    }
 
     return(
         <section className={stylePage.data_full_container}>
 
-            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[]} />
+            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[...stfs_res]} />
 
             <div className={stylePage.data_details}>
 
@@ -89,7 +107,52 @@ export default async function page({params}:{params:{anime_id: string}}) {
                     <Recommend_Index RECOM={recom?.data || []} type={"am"} />
                 </div>
 
-                <div className={stylePage.right_col_details}></div>
+                <div className={stylePage.right_col_details}>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>
+                            <Link href={offLink}><FaLink /></Link>
+                        </div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Status</div>
+                        <div className={stylePage.station_info}>{status}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Original Language</div>
+                        <div className={stylePage.station_info}>{original_language}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Budget</div>
+                        <div className={stylePage.station_info}>{budget}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Revenue</div>
+                        <div className={stylePage.station_info}>{revenue}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Type</div>
+                        <div className={stylePage.station_info}>{type}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Keywords</div>
+                        <div className={stylePage.station_info_list}>{keywords}</div>
+                    </div>
+
+                    <div className={stylePage.content_station}>
+                        <div className={stylePage.station_head}>Popularity Trend</div>
+                        <div className={stylePage.station_info_chart}>
+                            <LineChart datas={chart} name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkVibrant} />
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
 

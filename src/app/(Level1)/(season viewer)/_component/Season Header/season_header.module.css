@@ -306,3 +306,18 @@
 .successCopy.active{
     transform: translateY(0);
 }
+
+@media only screen and (max-width: 500px){
+    .drop_nav:nth-of-type(2):hover .drop_nav_item{
+        left: 10%;
+    }
+    .drop_nav:nth-of-type(2):hover .drop_nav_item{
+        left: 10%;
+    }
+    .nav_vid:hover .vid_navs{
+        left: -100%;
+    }
+    .drop_nav:nth-of-type(3):hover .drop_nav_item{
+        left: -100%;
+    }
+}

@@ -59,3 +59,10 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+
+
+@media only screen and (max-width: 750px){
+    .featured_casts_mapper{
+        grid-template-columns: 1fr;
+    }
+}

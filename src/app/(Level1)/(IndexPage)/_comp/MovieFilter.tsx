@@ -55,6 +55,7 @@ const optionSort = [
   { value: 'title_desc', label: 'Title Z-A' },
 ]
 
+
 export default function MoviesFilter() {
   const {isBtnActive} = useSelector((state: RootState) => state.querySlice)
   const dispatch = useDispatch()
