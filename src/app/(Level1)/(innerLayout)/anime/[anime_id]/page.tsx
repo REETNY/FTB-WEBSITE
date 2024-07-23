@@ -29,18 +29,26 @@ export const generateMetadata = async({params}: {params:{anime_id: string}}): Pr
     }
 }
 
+const delayTimer = async(value: number) => {
+    return new Promise((reject, resolve) => setTimeout(resolve, value));
+}
+
 export default async function page({params}:{params:{anime_id: string}}) {
 
     let ID = parseInt(params?.anime_id.split("_")[0]);
     const url = `https://api.jikan.moe/v4/anime/`;
 
     const animeData = await getDataById(url, ID);
+    await delayTimer(1200);
     let clr_res = await extractColorsFromImageUrl(url, ID, false);
     let cas_res = await getDataCastsById(url, ID);
+    await delayTimer(1200);
     let rev_res = await getDataRevById(url, ID);
     let trl_res = await getDataVidById(url, ID);
+    await delayTimer(1200);
     let pict = await getDataPicById(url, ID);
     let staffs = await getStaffById(url, ID);
+    await delayTimer(1200);
     let recom = await getDataRecommendationsById(url,ID);
 
     let stfs_res = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false)

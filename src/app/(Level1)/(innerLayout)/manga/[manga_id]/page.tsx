@@ -31,16 +31,22 @@ export const generateMetadata = async({params}: {params:{manga_id: string}}): Pr
     }
 }
 
+const delayTimer = async(value: number) => {
+    return new Promise((reject, resolve) => setTimeout(resolve, value));
+}
+
 export default async function page({params}:{params:{manga_id: string}}) {
 
     let ID = parseInt(params?.manga_id.split("_")[0]);
     const url = `https://api.jikan.moe/v4/manga/`;
 
     const animeData = await getDataById(url, ID);
+    await delayTimer(1200)
     let clr_res = await extractColorsFromImageUrl(url, ID, false);
     let cas_res = await getDataCastsById(url, ID);
+    await delayTimer(1200)
     let rev_res = await getDataRevById(url, ID);
-    let trl_res = await getDataVidById(url, ID);
+    await delayTimer(1200)
     let pict = await getDataPicById(url, ID);
     let recom = await getDataRecommendationsById(url,ID);
 
