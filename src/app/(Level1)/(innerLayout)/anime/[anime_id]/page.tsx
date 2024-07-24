@@ -39,19 +39,16 @@ export default async function page({params}:{params:{anime_id: string}}) {
     const url = `https://api.jikan.moe/v4/anime/`;
 
     const animeData = await getDataById(url, ID);
-    await delayTimer(1200);
     let clr_res = await extractColorsFromImageUrl(url, ID, false);
     let cas_res = await getDataCastsById(url, ID);
-    await delayTimer(1200);
     let rev_res = await getDataRevById(url, ID);
     let trl_res = await getDataVidById(url, ID);
-    await delayTimer(1200);
     let pict = await getDataPicById(url, ID);
     let staffs = await getStaffById(url, ID);
-    await delayTimer(1200);
     let recom = await getDataRecommendationsById(url,ID);
+    
 
-    let stfs_res = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false)
+    // let stfs_res = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false) 
     let rev_res_2 = rev_res?.data?.map((item:any) => {
         return {author: item?.user?.username, id: item.mal_id, created_at: item?.date, content: item?.review, author_details:{
             name: item?.user?.username,
@@ -104,7 +101,7 @@ export default async function page({params}:{params:{anime_id: string}}) {
     return(
         <section className={stylePage.data_full_container}>
 
-            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[...stfs_res]} />
+            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[]} />
 
             <div className={stylePage.data_details}>
 

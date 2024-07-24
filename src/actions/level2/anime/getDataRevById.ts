@@ -1,4 +1,5 @@
 import axios from "axios";
+import delayTimer from "../timerDelay";
 
 export const getDataRevById = async(
     url: string, 
@@ -8,6 +9,7 @@ export const getDataRevById = async(
     let fd;
 
   try{
+    await delayTimer(500)
     let res = await axios.get(
       url + id + "/reviews");
     fd = res.data;

@@ -132,7 +132,7 @@ export default function MainHead() {
             <div className={styls.navHeadInit}>
               <div onClick={() => handleKey("people")} className={styls.headIniter}>People</div>
               <div className={checkKey("people") ? `${styls.initerOptions} ${styls.active}` : styls.initerOptions}>
-                <Link onClick={clearQuery} href={""}>Popular People</Link>
+                <Link onClick={clearQuery} href={"/people/popular"}>Popular People</Link>
               </div>
             </div>
 
@@ -193,7 +193,7 @@ export default function MainHead() {
               <div className={styls.navLinkInit}>People</div>
               <div className={styls.navLinkChild}>
                 <span className={styls.linkChild}>
-                  <Link onClick={clearQuery} href={"/peoples/popular_people"}>Popular People</Link>
+                  <Link onClick={clearQuery} href={"/people/popular"}>Popular People</Link>
                 </span>
               </div>
             </div>

@@ -9,7 +9,7 @@ export const getDataById = async(
     let fd;
 
   try{
-    await delayTimer(500)
+    await delayTimer(1000)
     let res = await axios.get(
       url + id + "/full");
     fd = res.data;

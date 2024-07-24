@@ -41,12 +41,9 @@ export default async function page({params}:{params:{manga_id: string}}) {
     const url = `https://api.jikan.moe/v4/manga/`;
 
     const animeData = await getDataById(url, ID);
-    await delayTimer(1200)
     let clr_res = await extractColorsFromImageUrl(url, ID, false);
     let cas_res = await getDataCastsById(url, ID);
-    await delayTimer(1200)
     let rev_res = await getDataRevById(url, ID);
-    await delayTimer(1200)
     let pict = await getDataPicById(url, ID);
     let recom = await getDataRecommendationsById(url,ID);
 
