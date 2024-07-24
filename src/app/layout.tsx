@@ -1,8 +1,8 @@
 import { StoreProvider } from "@/store/StoreProvider"
 import "./globals.css"
 import { Roboto } from "next/font/google"
-import 'rsuite/dist/rsuite-no-reset.min.css';
 import { CustomProvider } from 'rsuite';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 export const metadata = {
   title: 'Next.js',

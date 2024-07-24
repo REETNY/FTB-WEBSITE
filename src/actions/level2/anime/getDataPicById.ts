@@ -9,7 +9,6 @@ export const getDataPicById = async(
     let fd;
 
   try{
-    await delayTimer(1000)
     let res = await axios.get(
       url + id + "/pictures");
     fd = res.data;

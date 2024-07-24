@@ -7,9 +7,8 @@ export const getStaffById = async(
 ) => {
 
     let fd;
-
+  await delayTimer(1000)
   try{
-    await delayTimer(1500)
     let res = await axios.get(
       url + id + "/staff");
     fd = res.data;

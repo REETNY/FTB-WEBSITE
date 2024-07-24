@@ -23,7 +23,6 @@ type FTCProps = {
 
 export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCProps, CAST: any}) {
 
-
     const isSmallDevice = useMediaQuery("only screen and (max-width : 750px)");
     const dispatch = useDispatch();
     const DB = useSelector((state: RootState) => state.dataSlice.manga);
@@ -224,10 +223,10 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
             
             {/* overview and tagline */}
             <div className={styls.data_teb_detz_over}>
-                <div className={styls.tagline_movie}>{MANGA?.synopsis}</div>
+                <div className={styls.tagline_movie}>{MANGA?.background}</div>
                 <div className={styls.overView_movie}>
                 <div className={styls.overview_head}>Overview</div>
-                <div className={styls.overview_char}>{MANGA?.background}</div>
+                <div className={styls.overview_char}>{MANGA?.synopsis}</div>
                 </div>
             </div>
 

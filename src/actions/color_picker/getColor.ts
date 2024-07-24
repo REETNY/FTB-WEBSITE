@@ -10,7 +10,6 @@ const extractColors = require('extract-colors');
 // Function to extract colors from an image URL
 export async function extractColorsFromImageUrl(url:string, id:number, headerOpt: boolean) {
   try {
-    await delayTimer(500)
     let reasoned = await axios.get(
       url + id + `${headerOpt ? "" : "/full"}`,
       { ...(headerOpt &&

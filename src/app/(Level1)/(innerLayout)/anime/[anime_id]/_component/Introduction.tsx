@@ -242,10 +242,10 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
             
             {/* overview and tagline */}
             <div className={styls.data_teb_detz_over}>
-                <div className={styls.tagline_movie}>{ANIME?.synopsis}</div>
+                <div className={styls.tagline_movie}>{ANIME?.background}</div>
                 <div className={styls.overView_movie}>
                 <div className={styls.overview_head}>Overview</div>
-                <div className={styls.overview_char}>{ANIME?.background}</div>
+                <div className={styls.overview_char}>{ANIME?.synopsis}</div>
                 </div>
             </div>
 

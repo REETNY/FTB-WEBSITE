@@ -46,9 +46,11 @@ export default async function page({params}:{params:{anime_id: string}}) {
     let pict = await getDataPicById(url, ID);
     let staffs = await getStaffById(url, ID);
     let recom = await getDataRecommendationsById(url,ID);
+
+    
     
 
-    // let stfs_res = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false) 
+    let stfs_res: {}[] = staffs?.data?.filter((item:any) => item?.positions?.includes("Producer") || item?.positions?.includes("Director") ? item : false) 
     let rev_res_2 = rev_res?.data?.map((item:any) => {
         return {author: item?.user?.username, id: item.mal_id, created_at: item?.date, content: item?.review, author_details:{
             name: item?.user?.username,
@@ -82,7 +84,7 @@ export default async function page({params}:{params:{anime_id: string}}) {
         ]
     }
 
-    const score = animeData?.data?.score * 10;
+    const score = animeData?.data?.score * 10 || 0;
     let status = animeData?.data?.status;
     let original_language = "Japanese";
     let type = "Anime";
@@ -101,7 +103,7 @@ export default async function page({params}:{params:{anime_id: string}}) {
     return(
         <section className={stylePage.data_full_container}>
 
-            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[]} />
+            <Introduction FTC={clr_res} ANIME={animeData?.data} CAST={[...stfs_res]} />
 
             <div className={stylePage.data_details}>
 
@@ -153,7 +155,7 @@ export default async function page({params}:{params:{anime_id: string}}) {
                     <div className={stylePage.content_station}>
                         <div className={stylePage.station_head}>Popularity Trend</div>
                         <div className={stylePage.station_info_chart}>
-                            <LineChart datas={chart} name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkVibrant} />
+                            {/* <LineChart datas={chart} name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkVibrant} /> */}
                         </div>
                     </div>
 
@@ -162,5 +164,6 @@ export default async function page({params}:{params:{anime_id: string}}) {
             </div>
 
         </section>
+        // <>Paged</>
     )
 }

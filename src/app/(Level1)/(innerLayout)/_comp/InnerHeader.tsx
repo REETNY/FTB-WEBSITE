@@ -7,6 +7,7 @@ import Link from 'next/link';
 import OutsideClickHandler from 'react-outside-click-handler';
 import {v4 as uuidV4} from "uuid";
 import { getDataVidById } from '@/actions/level2/anime/getDataVidById';
+import delayTimer from '@/actions/level2/timerDelay';
 
 interface VideoNav{
     name:string,
@@ -58,6 +59,7 @@ export default function InnerHeader() {
     }; 
 
     const fetch_video_navigator = async(url:string, id:number, type: string, bool:boolean) => {
+        await delayTimer(1000)
         if(type == "manga")return;
         let fetched = await getDataVidById(url, id, bool)
         let data_nav = fetched?.results || fetched?.data;

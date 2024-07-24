@@ -10,7 +10,7 @@ export const getDataVidById = async(
     let fd;
 
   try{
-    await delayTimer(1500)
+    // await delayTimer(1500)
     let res = await axios.get(
       url + id + "/videos",
       {

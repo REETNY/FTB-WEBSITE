@@ -5,11 +5,11 @@ export const getDataById = async(
     url: string, 
     id: number, 
 ) => {
-
     let fd;
 
-  try{
     await delayTimer(1000)
+
+  try{
     let res = await axios.get(
       url + id + "/full");
     fd = res.data;
