@@ -155,7 +155,7 @@ export default async function page({params}:{params:{anime_id: string}}) {
                     <div className={stylePage.content_station}>
                         <div className={stylePage.station_head}>Popularity Trend</div>
                         <div className={stylePage.station_info_chart}>
-                            {/* <LineChart datas={chart} name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkVibrant} /> */}
+                            <LineChart datas={chart} name={animeData?.data?.title} color={clr_res?.DarkVibrant} color2={clr_res?.DarkVibrant} />
                         </div>
                     </div>
 

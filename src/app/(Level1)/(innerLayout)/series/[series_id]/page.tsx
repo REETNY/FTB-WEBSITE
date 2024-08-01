@@ -22,9 +22,23 @@ import Social_Index from '../../_comp/Social_Index/Social_Index';
 import Media_Index from '../../_comp/Media_Index/Media_Index';
 import Recommend_Index from '../../_comp/Reccomend_Index/Recommend_Index';
 
+import type { Metadata } from 'next';
+
 interface SearchParams {
   params : {
     series_id: string
+  }
+}
+
+export const generateMetadata = async({params}:{params: {series_id: string}}) : Promise<Metadata> => {
+  let ID = parseInt(params.series_id.split("_")[0])
+  let url = `https://api.themoviedb.org/3/tv/`;
+
+  let res = await getMovieById(url, ID);
+  const title = res.title || res.name
+  return{
+    title: title,
+    description: `page to show ${title} details`
   }
 }
 
@@ -288,8 +302,6 @@ export default async function page({params}: SearchParams) {
   });
 
   let runtime = "Varies Per Episode"
-  console.log(movieData);
-  
 
   return (
     <section className={stylePage.data_full_container}>

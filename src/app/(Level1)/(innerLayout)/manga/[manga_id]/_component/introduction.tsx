@@ -10,7 +10,8 @@ import { addHeared, addListed, addWatched_Read, addRating, clearRating } from '@
 import StarRatings from 'react-star-ratings';
 import OutsideClickHandler from 'react-outside-click-handler';
 import styls from "../css_styling.module.css"
-
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 type FTCProps = {
     Vibrant: string,
@@ -22,10 +23,12 @@ type FTCProps = {
 } | null
 
 export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCProps, CAST: any}) {
-
+    const path = usePathname();
+    const router = useRouter()
     const isSmallDevice = useMediaQuery("only screen and (max-width : 750px)");
     const dispatch = useDispatch();
     const DB = useSelector((state: RootState) => state.dataSlice.manga);
+    const isOnline = useSelector((state: RootState) => state.userSlice.userDetails.isLoggedIn);
     function hexToRgb(hex?:string) {
         // Remove the hash if it's included
         hex = hex?.replace('#', '');
@@ -38,9 +41,6 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
         // Return RGB values as an object
         return { r, g, b };
     }
-
-    console.log(CAST);
-    
 
     const [rating, setRating] = useState(false);
     const currentType = "manga";
@@ -88,21 +88,37 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
 
   const handleList = (id:number) => {
     // check if logged in first
+    if(!isOnline){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addListed({type: currentType, id: id}))
   }
 
   const handleHeart = (id:number) => {
     // check if logged in first
+    if(!isOnline){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addHeared({type: currentType, id: id}))
   }
 
   const handleWatch = (id:number) => {
     // check if logged in first
+    if(!isOnline){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addWatched_Read({type: currentType, id: id}))
   }
 
   const handleRating = (rate: number, type:string, id: number) => {
     // const isOnline = CheckLoggedIn();
+    if(!isOnline){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     // if(!isOnline)return;
     // [{movieId: number, rated: number}]
     dispatch(addRating({rate, type, id}))
@@ -111,6 +127,10 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
 
   const handleClearRating = (id: number, type: string) => {
     // const isOnline = CheckLoggedIn();
+    if(!isOnline){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     // if(!isOnline)return;
     dispatch(clearRating({id, type}))
   }
@@ -179,24 +199,24 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
                 <div className={styls.movie_actions}>
                 <span 
                     onClick={() => handleList(MANGA.mal_id)} 
-                    className={isListed ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
+                    className={(isListed && isOnline) ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
                 >
                     <FaList />
                 </span>
                 <span 
                     onClick={() => handleHeart(MANGA.mal_id)} 
-                    className={isHearted ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
+                    className={(isHearted && isOnline) ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
                 ><FaHeart /></span>
                 <span 
                     onClick={() => handleWatch(MANGA.mal_id)}
-                    className={isWatched ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
+                    className={(isWatched && isOnline) ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
                 ><FaBookmark /></span>
                 <span 
                     onClick={() => setRating((bool) => !bool)}
                     className={styls.actions_btn}
                 >
-                    <span className={isRated ? styls.rated : ''}>
-                    <FaStar />
+                    <span className={(isRated && isOnline) ? styls.rated : ''}>
+                        <FaStar />
                     </span>
                     <OutsideClickHandler onOutsideClick={() => setRating(false)}>
                     <span className={rating ? `${styls.ratingInput} ${styls.active}` : styls.ratingInput}>
@@ -239,23 +259,23 @@ export default function Introduction({MANGA, FTC, CAST}: {MANGA: any, FTC: FTCPr
                 <div className={styls.xs__actions}>
                 <span 
                     onClick={() => handleList(MANGA.mal_id)} 
-                    className={isListed ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
+                    className={(isListed && isOnline) ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
                 >
                     <FaList />
                 </span>
                 <span 
                     onClick={() => handleHeart(MANGA.mal_id)} 
-                    className={isHearted ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
+                    className={(isHearted && isOnline) ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
                 ><FaHeart /></span>
                 <span 
                     onClick={() => handleWatch(MANGA.mal_id)}
-                    className={isWatched ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
+                    className={(isWatched && isOnline) ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
                 ><FaBookmark /></span>
                 <span 
                     onClick={() => setRating((bool) => !bool)}
                     className={styls.actions_btn}
                 >
-                    <span className={isRated ? styls.rated : ''}>
+                    <span className={(isRated && isOnline) ? styls.rated : ''}>
                     <FaStar />
                     </span>
                     <OutsideClickHandler onOutsideClick={() => setRating(false)}>

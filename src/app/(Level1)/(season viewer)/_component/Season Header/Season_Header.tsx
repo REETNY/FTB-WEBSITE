@@ -120,7 +120,7 @@ export default function Season_Header({DATA, SN, NAV_VID, SI}:{SI: number, DATA:
 
             <div className={styles.head_content_details}>
                 <div className={styles.detail_name_relz}>
-                    <span>{SN} {SI == 0 ? `Specials` : `Season ${SI}`}</span>
+                    <span>{SI == 0 ? `Specials` : `Season ${SI}`}</span>
                     <span>({getYear(DATA?.air_date)})</span>
                 </div>
                 <div className={styles.details_back_btn}>

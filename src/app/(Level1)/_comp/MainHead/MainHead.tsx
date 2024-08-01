@@ -11,13 +11,16 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import Image01 from '@/components/ImageComponents/Image01';
 import { queryBtn } from '@/store/Slices/QuerySlice';
-import { updateHamByBool } from '@/store/Slices/HamSlice'
+import { updateHamByBool } from '@/store/Slices/HamSlice';
+import { logout } from '@/store/Slices/UserSlice'
+
 
 export default function MainHead() {
   const searchParams = useSearchParams()
   let inputRef = useRef<HTMLInputElement>(null);
   const [detz, setDetz] = useState(false);
   const {isHam, key: openedKey} = useSelector((state: RootState) => state.hamSlice.properties);
+  const userDetails = useSelector((state: RootState) => state.userSlice.userDetails);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -206,13 +209,30 @@ export default function MainHead() {
 
           <div className={styls.users}>
 
-            <div className={styls.userInfo}>
+            <div style={!userDetails.isLoggedIn ? {display: "none"} : {}} className={styls.userInfo}>
+
               <div className={styls.userHero}>
-                <Image01 path1='/images/Error_Image.jpg' path2='' name='' />
+                <Image01 path1={userDetails.blob ? userDetails.blob :'/images/Error_Image.jpg'} path2='' name='' />
               </div>
+
+              <div className={styls.user_others}>
+                <Link href={"/users_details"}>Change Details</Link>
+                <Link href={"/users_action"}>Users Actions</Link>
+                <div onClick={() => dispatch(logout())} className={styls.log_out}>Log Out</div>
+              </div>
+
+              <div className={styls.users_name}>{userDetails.username}</div>
+
             </div>
 
-            {/* div. */}
+            <div style={userDetails.isLoggedIn ? {display: "none"} : {}} className={styls.userInfo2}>
+              <div className={styls.signUp}>
+                <Link href={"/signup"} >Sign Up</Link>
+              </div>
+              <div className={styls.signOut}>
+                <Link href={"/login"} >Login</Link>
+              </div>
+            </div>
 
           </div>
           

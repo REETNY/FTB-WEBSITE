@@ -21,10 +21,26 @@ import { getLanguageName } from '@/actions/country_mapper/language_mapper';
 import Image01 from '@/components/ImageComponents/Image01';
 import { tmdb_image_url2 } from '../../_comp/someExports';
 import UserSlider from '../../_comp/UserSlide/UserSlider';
+import type { Metadata } from 'next';
+import { title } from 'process';
 
 interface SearchParams {
   params : {
     movie_id: string
+  }
+}
+
+export const generateMetadata = async({params}:{params: {movie_id: string}}) : Promise<Metadata>  => {
+  
+  let ID = parseInt(params.movie_id.split("_")[0])
+  let url = `https://api.themoviedb.org/3/movie/`;
+  let res = await getMovieById(url, ID);
+
+  const title = res?.title || res?.name;
+
+  return {
+    title : title,
+    description: `page to view ${title} details`
   }
 }
 

@@ -15,6 +15,9 @@ import TrailerPlay from '@/app/(Level1)/(innerLayout)/_comp/TrailerPlay/TrailerP
 import styls from "../css_styling.module.css";
 import { useInView } from 'react-intersection-observer';
 import { Doughnut, Line } from "react-chartjs-2"
+import { usePathname } from 'next/navigation';
+
+import { useRouter } from 'next/navigation';
 
 type FTCProps = {
     Vibrant: string,
@@ -26,9 +29,11 @@ type FTCProps = {
 } | null
 
 export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCProps, CAST: any}) {
+    const router = useRouter()
     const isSmallDevice = useMediaQuery("only screen and (max-width : 750px)");
     const dispatch = useDispatch();
     const DB = useSelector((state: RootState) => state.dataSlice.anime);
+    const userDetz = useSelector((state:RootState) => state.userSlice);
     function hexToRgb(hex?:string) {
         // Remove the hash if it's included
         hex = hex?.replace('#', '');
@@ -45,6 +50,11 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
     const [rating, setRating] = useState(false);
     const [trailer, setTrailer] = useState(false)
     const currentType = "anime";
+
+    const path = usePathname();
+    
+
+    const isLoggedIn = userDetz.userDetails.isLoggedIn
 
 
     const isListed = DB.list.find((item:{id:number}) => item.id == ANIME.mal_id);
@@ -89,29 +99,47 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
 
   const handleList = (id:number) => {
     // check if logged in first
+    if(!isLoggedIn){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addListed({type: currentType, id: id}))
   }
 
   const handleHeart = (id:number) => {
     // check if logged in first
+    if(!isLoggedIn){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addHeared({type: currentType, id: id}))
   }
 
   const handleWatch = (id:number) => {
     // check if logged in first
+    if(!isLoggedIn){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addWatched_Read({type: currentType, id: id}))
   }
 
   const handleRating = (rate: number, type:string, id: number) => {
     // const isOnline = CheckLoggedIn();
-    // if(!isOnline)return;
-    // [{movieId: number, rated: number}]
+    if(!isLoggedIn){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     dispatch(addRating({rate, type, id}))
     
   }
 
   const handleClearRating = (id: number, type: string) => {
     // const isOnline = CheckLoggedIn();
+    if(!isLoggedIn){
+        router.push(`/login?back_to=${path}`)
+        return
+    }
     // if(!isOnline)return;
     dispatch(clearRating({id, type}))
   }
@@ -193,23 +221,23 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
                 <div className={styls.movie_actions}>
                 <span 
                     onClick={() => handleList(ANIME.mal_id)} 
-                    className={isListed ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
+                    className={(isListed && isLoggedIn) ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
                 >
                     <FaList />
                 </span>
                 <span 
                     onClick={() => handleHeart(ANIME.mal_id)} 
-                    className={isHearted ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
+                    className={(isHearted && isLoggedIn) ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
                 ><FaHeart /></span>
                 <span 
                     onClick={() => handleWatch(ANIME.mal_id)}
-                    className={isWatched ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
+                    className={(isWatched && isLoggedIn) ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
                 ><FaBookmark /></span>
                 <span 
                     onClick={() => setRating((bool) => !bool)}
                     className={styls.actions_btn}
                 >
-                    <span className={isRated ? styls.rated : ''}>
+                    <span className={(isRated && isLoggedIn) ? styls.rated : ''}>
                     <FaStar />
                     </span>
                     <OutsideClickHandler onOutsideClick={() => setRating(false)}>
@@ -258,23 +286,23 @@ export default function Introduction({ANIME, FTC, CAST}: {ANIME: any, FTC: FTCPr
                 <div className={styls.xs__actions}>
                 <span 
                     onClick={() => handleList(ANIME.mal_id)} 
-                    className={isListed ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
+                    className={(isListed && isLoggedIn) ? `${styls.actions_btn} ${styls.listed}` : styls.actions_btn}
                 >
                     <FaList />
                 </span>
                 <span 
                     onClick={() => handleHeart(ANIME.mal_id)} 
-                    className={isHearted ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
+                    className={(isHearted && isLoggedIn) ? `${styls.actions_btn} ${styls.hearted}` : styls.actions_btn}
                 ><FaHeart /></span>
                 <span 
                     onClick={() => handleWatch(ANIME.mal_id)}
-                    className={isWatched ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
+                    className={(isWatched && isLoggedIn) ? `${styls.actions_btn} ${styls.booked}` : styls.actions_btn}
                 ><FaBookmark /></span>
                 <span 
                     onClick={() => setRating((bool) => !bool)}
                     className={styls.actions_btn}
                 >
-                    <span className={isRated ? styls.rated : ''}>
+                    <span className={(isRated && isLoggedIn) ? styls.rated : ''}>
                     <FaStar />
                     </span>
                     <OutsideClickHandler onOutsideClick={() => setRating(false)}>

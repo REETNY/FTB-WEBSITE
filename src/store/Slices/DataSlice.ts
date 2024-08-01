@@ -200,6 +200,12 @@ export const DataSlice = createSlice({
                     state.manga.watched = [...state.manga.watched, {id}]
                 }
             }
+        },
+
+
+        // set initialstate when new user is created
+        addingNewUser: (state) => {
+            return initialState
         }
     }
 })
@@ -210,7 +216,8 @@ export const {
     addHeared,
     clearRating,
     addListed,
-    addWatched_Read
+    addWatched_Read,
+    addingNewUser
 } = DataSlice.actions
 
 export default DataSlice.reducer

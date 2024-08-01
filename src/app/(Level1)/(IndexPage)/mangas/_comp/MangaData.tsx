@@ -14,12 +14,14 @@ import Link from 'next/link'
 import { Manga } from '../page'
 import Image01 from '@/components/ImageComponents/Image01'
 import styles from "../mangaList.module.css"
+import { usePathname } from 'next/navigation'
 
 export default function MangaData(mangaData: Manga) {
-    const currentType = "manga"
+    const currentType = "manga";
+    const pathname = usePathname();
     const router = useRouter();
     const dispatch = useDispatch();
-
+    const isLoggedIn = useSelector((state: RootState) => state.userSlice.userDetails.isLoggedIn)
     const MangaDB = useSelector((state: RootState) => state?.dataSlice?.manga);
     
     // each movie data from store
@@ -73,38 +75,43 @@ export default function MangaData(mangaData: Manga) {
     }
 
     const handleRating = (rate: number, type:string, id: number) => {
-        const isOnline = CheckLoggedIn();
-        if(!isOnline)return;
+        if(!isLoggedIn){
+            router.push(pathname.length > 0 ? `/login?back_to=${pathname}` : "/login")
+        }
         // [{movieId: number, rated: number}]
         dispatch(addRating({rate, type, id}))
         
     }
 
     const handleClearRating = (id: number, type: string) => {
-        const isOnline = CheckLoggedIn();
-        if(!isOnline)return;
+        if(!isLoggedIn){
+            router.push(pathname.length > 0 ? `/login?back_to=${pathname}` : "/login")
+        }
         dispatch(clearRating({id, type}))
     }
 
     const handleList = (id: number, type: string ) => {
-        const isOnline = CheckLoggedIn();
-        if(!isOnline)return;
+        if(!isLoggedIn){
+            router.push(pathname.length > 0 ? `/login?back_to=${pathname}` : "/login")
+        }
         dispatch(addListed({id, type}))
         // check if exist
         // it true remove from list else add to list and save
     }
 
     const handleHeart = (id: number, type: string) => {
-        const isOnline = CheckLoggedIn();
-        if(!isOnline)return;
+        if(!isLoggedIn){
+            router.push(pathname.length > 0 ? `/login?back_to=${pathname}` : "/login")
+        }
        dispatch(addHeared({id, type}));
         // check if exist
         // it true remove from heart else add to heart and save
     }
 
     const handleBookmark = (id:number, type:string) => {
-        const isOnline = CheckLoggedIn();
-        if(!isOnline)return;
+        if(!isLoggedIn){
+            router.push(pathname.length > 0 ? `/login?back_to=${pathname}` : "/login")
+        }
         dispatch(addWatched_Read({id, type}))
         // check if exist
         // it true remove from bookmark else add to bookmark and save
@@ -143,10 +150,10 @@ export default function MangaData(mangaData: Manga) {
             <div className={styles.movieTab1}>
                 <div className={styles.movieControls}>
 
-                    <div onClick={handleMenuBtn} className={styles.movieControlBtn}>
+                   {isLoggedIn && <div onClick={handleMenuBtn} className={styles.movieControlBtn}>
                         <span className={movieSettings.menuBtn ? styles.active : ""}></span>
                         <span className={movieSettings.menuBtn ? styles.active : ""}></span>
-                    </div>
+                    </div>}
 
                     <div className={movieSettings.menuBtn ? `${styles.movieControlMenu} ${styles.sense}` : styles.movieControlMenu}>
                         <div className={styles.innerMenu}>

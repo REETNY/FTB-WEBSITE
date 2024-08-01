@@ -156,5 +156,6 @@
 @media only screen and (max-width: 750px){
     .altTitle_Cont{
         grid-template-columns: 1fr;
+        row-gap: 40px;
     }
 }
