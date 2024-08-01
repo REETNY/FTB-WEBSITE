@@ -174,7 +174,7 @@ export default function SIGNIN({back}:{back: string}) {
         </div>
 
         <div className={styles.other_msgs}>
-            Don't have an account yet? <Link href={(back.length != 0) ? `/signup?back_to=${back}` : `/signup`}>create your account</Link>
+            Don&apos;t have an account yet? <Link href={(back.length != 0) ? `/signup?back_to=${back}` : `/signup`}>create your account</Link>
         </div>
 
     </div>
